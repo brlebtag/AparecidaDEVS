@@ -1,0 +1,11 @@
+from the sos perspective, AparecidaDEVS is made of EagleEyes, Camera1, OCC, LightCentral, LightHubA, and LuminareA1!
+
+from the sos perspective, Camera1 sends CarCrash to EagleEyes!
+from the sos perspective, EagleEyes sends CarCrash to OCC!
+from the sos perspective, EagleEyes sends CarCrash to LightCentral!
+from the sos perspective, LightCentral sends CarCrash to LightHubA!
+from the sos perspective, LightHubA sends CarCrash to LuminareA1!
+from the sos perspective, LightCentral sends LightChangedState to OCC!
+from the sos perspective, LightHubA sends LightChangedState to LightCentral!
+from the sos perspective, LuminareA1 sends LightChangedState to LightHubA!
+from the sos perspective, OCC sends Done to Camera1!

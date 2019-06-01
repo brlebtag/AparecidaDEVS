@@ -1,0 +1,4 @@
+set name of model as AparecidaDEVS !
+pruned from AparecidaDEVS.ses !
+mergeAll from AparecidaDEVS.ses !
+write class files !

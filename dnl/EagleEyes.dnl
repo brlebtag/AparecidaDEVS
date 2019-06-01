@@ -1,0 +1,32 @@
+//-----------------------------------------------!
+//			Messages typedef!
+//---------!
+accepts input on CarCrash with type CarCrash!
+
+//-----------------------------------------------!
+//			Variables!
+//---------!
+use carCrashParam with type CarCrash!
+
+//-----------------------------------------------!
+//			Process input!
+//---------!
+to start passivate in ReadyState!
+when in ReadyState and receive CarCrash go to SendCarCrashState!
+external event for ReadyState with CarCrash
+<%
+carCrashParam = (CarCrash) messageList.get(0).getData();
+System.out.println("----------------------- EagleEyes Received ------------------------");
+%>!
+
+//-----------------------------------------------!
+//			Send CarCrash!
+//---------!
+hold in SendCarCrashState for time 1!
+after SendCarCrashState output CarCrash!
+from SendCarCrashState go to ReadyState!
+output event for SendCarCrashState
+<%
+output.add(outCarCrash, carCrashParam);
+System.out.println("----------------------- EagleEyes Sent ------------------------");
+%>!

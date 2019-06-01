@@ -3,21 +3,38 @@
 //---------!
 accepts input on CarCrash with type CarCrash!
 accepts input on LightChangedState with type LightChangedState!
+accepts input on TurnOn with type TurnOn!
+accepts input on TurnOff with type TurnOff!
+accepts input on Consumption with type Consumption!
 
 //-----------------------------------------------!
 //			Variables!
 //---------!
 use carCrashParam with type CarCrash!
 use lightChangedStateParam with type LightChangedState!
+use turnOnParam with type TurnOn!
+use turnOffParam with type TurnOff!
 
 //-----------------------------------------------!
 //			Wait for Commands!
 //---------!
 to start passivate in ReadyState!
 when in ReadyState and receive CarCrash go to SendCarCrashState!
+when in ReadyState and receive TurnOn go to SendTurnOnState!
+when in ReadyState and receive TurnOff go to SendTurnOffState!
 external event for ReadyState with CarCrash
 <%
 carCrashParam = (CarCrash) messageList.get(0).getData();
+System.out.println("----------------------- LightCentral Received ------------------------");
+%>!
+external event for ReadyState with TurnOn
+<%
+turnOnParam = (TurnOn) messageList.get(0).getData();
+System.out.println("----------------------- LightCentral Received ------------------------");
+%>!
+external event for ReadyState with TurnOff
+<%
+turnOffParam = (TurnOff) messageList.get(0).getData();
 System.out.println("----------------------- LightCentral Received ------------------------");
 %>!
 
@@ -30,6 +47,30 @@ from SendCarCrashState go to WaitForLightChangedState!
 output event for SendCarCrashState
 <%
 output.add(outCarCrash, carCrashParam);
+System.out.println("----------------------- LightCentral Sent ------------------------");
+%>!
+
+//-----------------------------------------------!
+//			Send CarCrash!
+//---------!
+hold in SendTurnOnState for time 1!
+after SendTurnOnState output TurnOn!
+from SendTurnOnState go to WaitForDoneTurnOnState!
+output event for SendCarCrashState
+<%
+output.add(outTurnOn, turnOnParam);
+System.out.println("----------------------- LightCentral Sent ------------------------");
+%>!
+
+//-----------------------------------------------!
+//			Send CarCrash!
+//---------!
+hold in SendTurnOffState for time 1!
+after SendTurnOffState output TurnOff!
+from SendTurnOffState go to WaitForDoneTurnOffState!
+output event for SendTurnOffState
+<%
+output.add(outTurnOn, turnOnParam);
 System.out.println("----------------------- LightCentral Sent ------------------------");
 %>!
 
@@ -55,3 +96,22 @@ output event for SendLightChangedState
 output.add(outLightChangedState, lightChangedStateParam);
 System.out.println("----------------------- LightCentral Sent ------------------------");
 %>!
+
+//-----------------------------------------------!
+//			Wait for  WaitForDoneTurnOn!
+//---------!
+passivate in WaitForDoneTurnOnState!
+when in WaitForDoneTurnOnState and receive DoneTurnOn go to ReadyState!
+
+//-----------------------------------------------!
+//			Wait for  WaitForDoneTurnOn!
+//---------!
+passivate in WaitForDoneTurnOffState!
+when in WaitForDoneTurnOffState and receive DoneTurnOff go to SendConsumptionState!
+
+//-----------------------------------------------!
+//			Send LightChangedState!
+//---------!
+hold in SendConsumptionState for time 1!
+after SendConsumptionState output Consumption!
+from SendConsumptionState go to ReadyState!

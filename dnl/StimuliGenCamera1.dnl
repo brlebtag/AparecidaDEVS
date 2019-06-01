@@ -1,0 +1,100 @@
+//-----------------------------------------------!
+//			Library								 !
+//---------										 !
+add library
+<%
+import java.io.FileReader;
+import java.io.BufferedReader;
+%>!
+
+//-----------------------------------------------!
+//			Messages typedef!
+//---------!
+A CarCrash has a value!
+the range of CarCrash's value is String!
+
+A Consumption has a value!
+the range of Consumption's value is String!
+
+A LightChangedState has a value!
+the range of LightChangedState's value is String!
+
+//-----------------------------------------------!
+//			Variables!
+//---------!
+use buffer with type java.io.BufferedReader!
+use carCrashParam with type String!
+
+//-----------------------------------------------!
+//			Initializing!
+//---------!
+to start hold in InitialState for time 1!
+from InitialState go to ReadLineState!
+
+Internal event for InitialState
+<%
+try
+{
+	buffer = new java.io.BufferedReader(new java.io.FileReader("/home/brlebtag/Documentos/Mestrado/AparecidaDEVS/Camera1.csv"));
+	System.out.println("----------------------- File Opened! -----------------------");
+} catch(Exception e) {
+	System.out.println("----------------------- Couldn't open the file -----------------------");
+	System.out.println(e);
+	holdIn("EOFState", 0.0);
+}
+%>!
+
+//-----------------------------------------------!
+//			Processing Line!
+//---------!
+hold in ReadLineState for time 1!
+from ReadLineState go to EOFState!
+Internal event for ReadLineState
+<%
+try
+{
+	if (buffer.ready()) {
+		System.out.println("----------------------- Reading Line -----------------------");
+		String line = buffer.readLine();
+ 		String[] params = line.split(";");
+ 		System.out.println("----------------------------------------------");
+ 		System.out.println("Read: " + line);
+ 		System.out.println("----------------------------------------------");
+ 		System.out.println("Event `" + params[1] + "` happened at " + params[0]);
+ 		
+ 		if (params[1].equals("car_crash")) {
+ 			
+ 			carCrashParam = line;
+ 			holdIn("CarCrashState", 0.0);
+ 			System.out.println("---> car_crash");
+ 			
+ 		}
+	} else {
+		System.out.println("----------------------- File Closed! -----------------------");
+	}
+} catch(Exception e) {
+	System.out.println("----------------------- Couldn't read the line -----------------------");
+	System.out.println(e);
+	holdIn("EOFState", 0.0);
+}
+%>!
+
+//-----------------------------------------------!
+//			End Of File!
+//---------!
+passivate in EOFState!
+
+//-----------------------------------------------!
+//			Action: TurnOn!
+//---------!
+hold in CarCrashState for time 1!
+after CarCrashState output CarCrash!
+from CarCrashState go to WaitForNextTick!
+output event for CarCrashState
+<%
+output.add(outCarCrash, new CarCrash(carCrashParam));
+%>!
+
+
+hold in WaitForNextTick for time 30!
+from the WaitForNextTick go to ReadLineState!

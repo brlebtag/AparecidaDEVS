@@ -1,5 +1,7 @@
 to start passivate in ReadyState!
 when in ReadyState and receive CarCrash go to SendLightChangedState!
+when in ReadyState and receive TurnOn go to SendDoneTurnOnState!
+when in ReadyState and receive TurnOff go to SendDoneTurnOffState!
 
 //-----------------------------------------------!
 //			Send LightChangedState!
@@ -7,3 +9,12 @@ when in ReadyState and receive CarCrash go to SendLightChangedState!
 hold in SendLightChangedState for time 1!
 after SendLightChangedState output LightChangedState!
 from SendLightChangedState go to ReadyState!
+
+hold in SendDoneTurnOnState for time 1!
+after SendDoneTurnOnState output DoneTurnOn!
+from SendDoneTurnOnState go to ReadyState!
+
+
+hold in SendDoneTurnOffState for time 1!
+after SendDoneTurnOffState output DoneTurnOff!
+from SendDoneTurnOffState go to ReadyState!

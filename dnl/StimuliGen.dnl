@@ -46,11 +46,17 @@ the range of CarCrashBehavior's value is String!
 A CarCrashBehaviorA has a value!
 the range of CarCrashBehaviorA's value is String!
 
+A CarCrashBehaviorB has a value!
+the range of CarCrashBehaviorB's value is String!
+
 A CarCrashBehaviorA1 has a value!
 the range of CarCrashBehaviorA1's value is String!
 
 A CarCrashBehaviorA2 has a value!
 the range of CarCrashBehaviorA2's value is String!
+
+A CarCrashBehaviorB1 has a value!
+the range of CarCrashBehaviorB1's value is String!
 
 A CarCrashResolved has a value!
 the range of CarCrashResolved's value is String!
@@ -61,11 +67,17 @@ the range of RestoreBehavior's value is String!
 A RestoreBehaviorA has a value!
 the range of RestoreBehaviorA's value is String!
 
+A RestoreBehaviorB has a value!
+the range of RestoreBehaviorB's value is String!
+
 A RestoreBehaviorA1 has a value!
 the range of RestoreBehaviorA1's value is String!
 
 A RestoreBehaviorA2 has a value!
 the range of RestoreBehaviorA2's value is String!
+
+A RestoreBehaviorB1 has a value!
+the range of RestoreBehaviorB1's value is String!
 
 A DoneTurnOff has a value!
 the range of DoneTurnOff's value is String!

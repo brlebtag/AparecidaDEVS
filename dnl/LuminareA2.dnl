@@ -2,8 +2,8 @@
 //			Messages typedef!
 //---------!
 accepts input on LightChangedState with type LightChangedState!
-accepts input on CarCrashBehaviorA1 with type CarCrashBehaviorA1!
-accepts input on RestoreBehaviorA1 with type RestoreBehaviorA1!
+accepts input on CarCrashBehaviorA2 with type CarCrashBehaviorA2!
+accepts input on RestoreBehaviorA2 with type RestoreBehaviorA2!
 
 //-----------------------------------------------!
 //			Variables!
@@ -14,36 +14,36 @@ use isMe with type boolean!
 //			ReadyState!
 //---------!
 to start passivate in ReadyState!
-when in ReadyState and receive CarCrashBehaviorA1 go to SendLightChangedState!
+when in ReadyState and receive CarCrashBehaviorA2 go to SendLightChangedState!
 when in ReadyState and receive TurnOn go to SendDoneTurnOnState!
 when in ReadyState and receive TurnOff go to SendDoneTurnOffState!
-when in ReadyState and receive RestoreBehaviorA1 go to SendLightChangedState!
-external event for ReadyState with CarCrashBehaviorA1
+when in ReadyState and receive RestoreBehaviorA2 go to SendLightChangedState!
+external event for ReadyState with CarCrashBehaviorA2
 <%
-CarCrashBehaviorA1 event = (CarCrashBehaviorA1) messageList.get(0).getData();
+CarCrashBehaviorA2 event = (CarCrashBehaviorA2) messageList.get(0).getData();
 String[] params = event.getValue().split(";");
 datetime = params[0];
 isMe = contains(name, params[2].split(","));
-System.out.println("----------------------- LuminareA1 IsMe "+ (isMe ? "true": false) +" ------------------------");
-System.out.println("----------------------- LuminareA1 Received CarCrashBehaviorA1 ------------------------");
+System.out.println("----------------------- LuminareA2 IsMe "+ (isMe ? "true": false) +" ------------------------");
+System.out.println("----------------------- LuminareA2 Received CarCrashBehaviorA1 ------------------------");
 %>!
 external event for ReadyState with TurnOn
 <%
 TurnOn event = (TurnOn) messageList.get(0).getData();
 String[] params = event.getValue().split(";");
 datetime = params[0];
-System.out.println("----------------------- LuminareA1 Received TurnOn ------------------------");
+System.out.println("----------------------- LuminareA2 Received TurnOn ------------------------");
 %>!
 external event for ReadyState with TurnOff
 <%
 TurnOff event = (TurnOff) messageList.get(0).getData();
 String[] params = event.getValue().split(";");
 datetime = params[0];
-System.out.println("----------------------- LuminareA1 Received TurnOff ------------------------");
+System.out.println("----------------------- LuminareA2 Received TurnOff ------------------------");
 %>!
-external event for ReadyState with RestoreBehaviorA1
+external event for ReadyState with RestoreBehaviorA2
 <%
-RestoreBehaviorA1 event = (RestoreBehaviorA1) messageList.get(0).getData();
+RestoreBehaviorA2 event = (RestoreBehaviorA2) messageList.get(0).getData();
 String[] params = event.getValue().split(";");
 datetime = params[0];
 %>!
@@ -81,7 +81,7 @@ from SendDoneTurnOffState go to ReadyState!
 output event for SendDoneTurnOffState
 <%
 output.add(outDoneTurnOff, new DoneTurnOff(datetime + ";" + "done_turn_off" + ";" + name));
-System.out.println("----------------------- LuminareA1 Sent DoneTurnOff ------------------------");
+System.out.println("----------------------- LuminareA2 Sent DoneTurnOff ------------------------");
 %>!
 
 //-----------------------------------------------!
@@ -90,7 +90,7 @@ System.out.println("----------------------- LuminareA1 Sent DoneTurnOff --------
 
 add additional code
 <%
-protected String name = "A1";
+protected String name = "A2";
 protected boolean contains(String key, String[] values) {
 	System.out.println("----------------------- Key: |" + key + "| ------------------------");
 	

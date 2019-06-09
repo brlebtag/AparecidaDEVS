@@ -1,0 +1,241 @@
+//-----------------------------------------------!
+//			Library								 !
+//---------										 !
+add library
+<%
+import java.io.FileReader;
+import java.io.BufferedReader;
+%>!
+
+//-----------------------------------------------!
+//			Messages typedef!
+//---------!
+A CarCrashSOSAparecida has a value!
+the range of CarCrashSOSAparecida's value is String!
+
+A CarCrashCamera1 has a value!
+the range of CarCrashCamera1's value is String!
+
+A TurnOn has a value!
+the range of TurnOn's value is String!
+
+A TurnOff has a value!
+the range of TurnOff's value is String!
+
+A CarCrashResolvedOCC has a value!
+the range of CarCrashResolvedOCC's value is String!
+
+A CarCrashResolvedCamera1 has a value!
+the range of CarCrashResolvedCamera1's value is String!
+
+A CarCrash has a value!
+the range of CarCrash's value is String!
+
+A ManualCarCrash has a value!
+the range of ManualCarCrash's value is String!
+
+A LightChangedState has a value!
+the range of LightChangedState's value is String!
+
+A Consumption has a value!
+the range of Consumption's value is String!
+
+A CarCrashBehavior has a value!
+the range of CarCrashBehavior's value is String!
+
+A CarCrashBehaviorA has a value!
+the range of CarCrashBehaviorA's value is String!
+
+A CarCrashBehaviorA1 has a value!
+the range of CarCrashBehaviorA1's value is String!
+
+A CarCrashBehaviorA2 has a value!
+the range of CarCrashBehaviorA2's value is String!
+
+A CarCrashResolved has a value!
+the range of CarCrashResolved's value is String!
+
+A RestoreBehavior has a value!
+the range of RestoreBehavior's value is String!
+
+A RestoreBehaviorA has a value!
+the range of RestoreBehaviorA's value is String!
+
+A RestoreBehaviorA1 has a value!
+the range of RestoreBehaviorA1's value is String!
+
+A RestoreBehaviorA2 has a value!
+the range of RestoreBehaviorA2's value is String!
+
+A DoneTurnOff has a value!
+the range of DoneTurnOff's value is String!
+
+//-----------------------------------------------!
+//			Variables!
+//---------!
+use buffer with type java.io.BufferedReader!
+use carCrashSOSAparecidaParam with type String!
+use carCrashCamera1Param with type String!
+use turnOnParam with type String!
+use turnOffParam with type String!
+use carCrashResolvedOCCParam with type String!
+use carCrashResolvedCamera1Param with type String!
+
+//-----------------------------------------------!
+//			Initializing!
+//---------!
+to start hold in InitialState for time 1!
+from InitialState go to ReadLineState!
+
+Internal event for InitialState
+<%
+try
+{
+	buffer = new java.io.BufferedReader(new java.io.FileReader("/home/brlebtag/Documentos/Mestrado/AparecidaDEVS/StimuliGen.csv"));
+	System.out.println("----------------------- StimuliGen File Opened! -----------------------");
+} catch(Exception e) {
+	System.out.println("----------------------- StimuliGen Couldn't open the file -----------------------");
+	System.out.println(e);
+	holdIn("EOFState", 0.0);
+}
+%>!
+
+//-----------------------------------------------!
+//			Processing Line!
+//---------!
+hold in ReadLineState for time 1!
+from ReadLineState go to EOFState!
+Internal event for ReadLineState
+<%
+try
+{
+	if (buffer.ready()) {
+		System.out.println("----------------------- Reading Line -----------------------");
+		String line = buffer.readLine();
+ 		String[] params = line.split(";");
+ 		System.out.println("----------------------------------------------");
+ 		System.out.println("Read: " + line);
+ 		System.out.println("----------------------------------------------");
+ 		System.out.println("Event `" + params[1] + "` happened at " + params[0]);
+ 		
+ 		if (params[1].equals("car_crash_sosaparecida")) {
+ 			
+ 			carCrashSOSAparecidaParam = line;
+ 			holdIn("CarCrashSOSAparecidaState", 0.0);
+ 			System.out.println("---> car_crash_sosaparecida");
+ 			
+ 		} else if (params[1].equals("car_crash_camera1")) {
+ 			
+ 			carCrashCamera1Param = line;
+ 			holdIn("CarCrashCamera1State", 0.0);
+ 			System.out.println("---> car_crash_camera1");
+ 			
+ 		} else if (params[1].equals("turn_on")) {
+ 			
+ 			turnOnParam = line;
+ 			holdIn("TurnOnState", 0.0);
+ 			System.out.println("---> turn_on");
+ 			
+ 		} else if (params[1].equals("turn_off")) {
+ 			
+ 			turnOffParam = line;
+ 			holdIn("TurnOffState", 0.0);
+ 			System.out.println("---> turn_off");
+ 			
+ 		} else if (params[1].equals("car_crash_resolved_occ")) {
+ 			
+ 			carCrashResolvedOCCParam = line;
+ 			holdIn("CarCrashResolvedOCCState", 0.0);
+ 			System.out.println("---> car_crash_resolved_occ");
+ 			
+ 		} else if (params[1].equals("car_crash_resolved_camera1")) {
+ 			
+ 			carCrashResolvedCamera1Param = line;
+ 			holdIn("CarCrashResolvedCamera1State", 0.0);
+ 			System.out.println("---> car_crash_resolved_camera1");
+ 			
+ 		}
+	} else {
+		System.out.println("----------------------- File Closed! -----------------------");
+	}
+} catch(Exception e) {
+	System.out.println("----------------------- Couldn't read the line -----------------------");
+	System.out.println(e);
+	holdIn("EOFState", 0.0);
+}
+%>!
+
+//-----------------------------------------------!
+//			End Of File!
+//---------!
+passivate in EOFState!
+
+//-----------------------------------------------!
+//			Action: CarCrashAparecida!
+//---------!
+hold in CarCrashSOSAparecidaState for time 1!
+after CarCrashSOSAparecidaState output CarCrashSOSAparecida!
+from CarCrashSOSAparecidaState go to WaitForNextTick!
+output event for CarCrashSOSAparecidaState
+<%
+output.add(outCarCrashSOSAparecida, new CarCrashSOSAparecida(carCrashSOSAparecidaParam));
+%>!
+
+//-----------------------------------------------!
+//			Action: CarCrashCamera1!
+//---------!
+hold in CarCrashCamera1State for time 1!
+after CarCrashCamera1State output CarCrashCamera1!
+from CarCrashCamera1State go to WaitForNextTick!
+output event for CarCrashCamera1State
+<%
+output.add(outCarCrashCamera1, new CarCrashCamera1(carCrashCamera1Param));
+%>!
+
+//-----------------------------------------------!
+//			Action: TurnOn!
+//---------!
+hold in TurnOnState for time 1!
+after TurnOnState output TurnOn!
+from TurnOnState go to WaitForNextTick!
+output event for TurnOnState
+<%
+output.add(outTurnOn, new TurnOn(turnOnParam));
+%>!
+
+//-----------------------------------------------!
+//			Action: TurnOff!
+//---------!
+hold in TurnOffState for time 1!
+after TurnOffState output TurnOff!
+from TurnOffState go to WaitForNextTick!
+output event for TurnOffState
+<%
+output.add(outTurnOff, new TurnOff(turnOffParam));
+%>!
+
+//-----------------------------------------------!
+//			Action: CarCrashResolvedOCC!
+//---------!
+hold in CarCrashResolvedOCCState for time 1!
+after CarCrashResolvedOCCState output CarCrashResolvedOCC!
+from CarCrashResolvedOCCState go to WaitForNextTick!
+output event for CarCrashResolvedOCCState
+<%
+output.add(outCarCrashResolvedOCC, new CarCrashResolvedOCC(carCrashResolvedOCCParam));
+%>!
+
+//-----------------------------------------------!
+//			Action: CarCrashResolvedCamera1Param!
+//---------!
+hold in CarCrashResolvedCamera1State for time 1!
+after CarCrashResolvedCamera1State output CarCrashResolvedCamera1!
+from CarCrashResolvedCamera1State go to WaitForNextTick!
+output event for CarCrashResolvedCamera1State
+<%
+output.add(outCarCrashResolvedCamera1, new CarCrashResolvedCamera1(carCrashResolvedCamera1Param));
+%>!
+
+
+hold in WaitForNextTick for time 30!
+from the WaitForNextTick go to ReadLineState!

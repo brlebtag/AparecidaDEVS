@@ -1,88 +1,123 @@
 //-----------------------------------------------!
+//			Library								 !
+//---------										 !
+add library
+<%
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.lang.StringBuilder;
+%>!
+
+//-----------------------------------------------!
 //			Messages typedef!
 //---------!
-accepts input on CarCrash with type CarCrash!
 accepts input on LightChangedState with type LightChangedState!
+accepts input on CarCrashBehaviorA with type CarCrashBehaviorA!
 accepts input on TurnOn with type TurnOn!
 accepts input on TurnOff with type TurnOff!
 accepts input on Consumption with type Consumption!
+accepts input on RestoreBehaviorA with type RestoreBehaviorA!
 
 //-----------------------------------------------!
 //			Variables!
 //---------!
-use carCrashParam with type CarCrash!
+use listLuminaries with type java.util.ArrayList<Luminaire> and default "new java.util.ArrayList<Luminaire>()"!
+use carCrashParam with type String!
+use carCrashEvent with type String!
+use restoreEvent with type String!
+use datetime with type String!
 use lightChangedStateParam with type LightChangedState!
+use lightChangedStateList with type String and default "\"\""!
 use turnOnParam with type TurnOn!
 use turnOffParam with type TurnOff!
+use restoreBehaviorParam with type String!
+use consumptionParam with type Consumption!
+
+
+//-----------------------------------------------!
+//			InitState!
+//---------!
+to start hold in InitState for time 0!
+from the InitState go to ReadyState!
+internal event for InitState
+<%
+try
+{
+	BufferedReader buffer = new BufferedReader(new FileReader("/home/brlebtag/Documentos/Mestrado/AparecidaDEVS/LightHubA.csv"));
+	System.out.println("----------------------- LightHubA File Opened! -----------------------");
+	
+	while(buffer.ready()) {
+		String line = buffer.readLine();
+		String[] params = line.split(";");
+		Luminaire luminaire = new Luminaire(params[0], toDouble(params[1]), toDouble(params[2]));
+		listLuminaries.add(luminaire);
+		System.out.println("----------------------- Luminarie: " + luminaire.toString() +" -----------------------");
+	}
+	
+} catch(Exception e) {
+	System.out.println("----------------------- LightHubA Couldn't open the file -----------------------");
+	System.out.println(e);
+}
+%>!
 
 //-----------------------------------------------!
 //			Wait for Commands!
 //---------!
-to start passivate in ReadyState!
-when in ReadyState and receive CarCrash go to SendCarCrashState!
+passivate in ReadyState!
+when in ReadyState and receive CarCrashBehaviorA go to SendingCarCrashState!
 when in ReadyState and receive TurnOn go to SendTurnOnState!
 when in ReadyState and receive TurnOff go to SendTurnOffState!
-external event for ReadyState with CarCrash
+when in ReadyState and receive RestoreBehaviorA go to SendingRestoreBehaviorState!
+external event for ReadyState with CarCrashBehaviorA
 <%
-carCrashParam = (CarCrash) messageList.get(0).getData();
-System.out.println("----------------------- LightCentral Received ------------------------");
+lightChangedStateList = "";
+CarCrashBehaviorA  event = (CarCrashBehaviorA) messageList.get(0).getData();
+carCrashEvent = event.getValue();
+carCrashParam = buildCarCrashBehavior(carCrashEvent);
+System.out.println("----------------------- LightHubA Received CarCrashBehavior ------------------------");
 %>!
 external event for ReadyState with TurnOn
 <%
 turnOnParam = (TurnOn) messageList.get(0).getData();
-System.out.println("----------------------- LightCentral Received ------------------------");
+System.out.println("----------------------- LightHubA Received TurnOn ------------------------");
 %>!
 external event for ReadyState with TurnOff
 <%
 turnOffParam = (TurnOff) messageList.get(0).getData();
-System.out.println("----------------------- LightCentral Received ------------------------");
+System.out.println("----------------------- LightHubA Received TurnOff ------------------------");
 %>!
-
-//-----------------------------------------------!
-//			Send CarCrash!
-//---------!
-hold in SendCarCrashState for time 1!
-after SendCarCrashState output CarCrash!
-from SendCarCrashState go to WaitForLightChangedState!
-output event for SendCarCrashState
+external event for ReadyState with RestoreBehaviorA
 <%
-output.add(outCarCrash, carCrashParam);
-System.out.println("----------------------- LightCentral Sent ------------------------");
+System.out.println("----------------------- LightHubA Received RestoreBehavior1 ------------------------");
+lightChangedStateList = "";
+RestoreBehaviorA event = (RestoreBehaviorA) messageList.get(0).getData();
+restoreEvent = event.getValue();
+restoreBehaviorParam = buildRestoreBehavior(restoreEvent);
+System.out.println("----------------------- LightHubA Received RestoreBehavior2 ------------------------");
 %>!
 
 //-----------------------------------------------!
-//			Send CarCrash!
+//			Send SendTurnOnState!
 //---------!
 hold in SendTurnOnState for time 1!
 after SendTurnOnState output TurnOn!
 from SendTurnOnState go to WaitForDoneTurnOnState!
-output event for SendCarCrashState
+output event for SendTurnOnState
 <%
 output.add(outTurnOn, turnOnParam);
-System.out.println("----------------------- LightCentral Sent ------------------------");
+System.out.println("----------------------- LightHubA Sent TurnOn ------------------------");
 %>!
 
 //-----------------------------------------------!
-//			Send CarCrash!
+//			Send SendTurnOffState!
 //---------!
 hold in SendTurnOffState for time 1!
 after SendTurnOffState output TurnOff!
 from SendTurnOffState go to WaitForDoneTurnOffState!
 output event for SendTurnOffState
 <%
-output.add(outTurnOn, turnOnParam);
-System.out.println("----------------------- LightCentral Sent ------------------------");
-%>!
-
-//-----------------------------------------------!
-//			Wait for  WaitForLightChangedState!
-//---------!
-passivate in WaitForLightChangedState!
-when in WaitForLightChangedState and receive LightChangedState go to SendLightChangedState!
-external event for WaitForLightChangedState with LightChangedState
-<%
-lightChangedStateParam = (LightChangedState) messageList.get(0).getData();
-System.out.println("----------------------- LightCentral Received ------------------------");
+output.add(outTurnOff, turnOffParam);
+System.out.println("----------------------- LightHubA Sent TurnOff ------------------------");
 %>!
 
 //-----------------------------------------------!
@@ -94,24 +129,388 @@ from SendLightChangedState go to ReadyState!
 output event for SendLightChangedState
 <%
 output.add(outLightChangedState, lightChangedStateParam);
-System.out.println("----------------------- LightCentral Sent ------------------------");
+System.out.println("----------------------- LightHubA Sent LightChangedState ------------------------");
 %>!
 
 //-----------------------------------------------!
-//			Wait for  WaitForDoneTurnOn!
+//			Wait for DoneTurnOn!
 //---------!
 passivate in WaitForDoneTurnOnState!
 when in WaitForDoneTurnOnState and receive DoneTurnOn go to ReadyState!
 
 //-----------------------------------------------!
-//			Wait for  WaitForDoneTurnOn!
+//			Wait for DoneTurnOff!
 //---------!
 passivate in WaitForDoneTurnOffState!
 when in WaitForDoneTurnOffState and receive DoneTurnOff go to SendConsumptionState!
+external event for WaitForDoneTurnOffState with DoneTurnOff
+<%
+consumptionParam = buildConsumption(messageList);
+System.out.println("----------------------- LightHubA Received LightChangedState ------------------------");
+%>!
 
 //-----------------------------------------------!
-//			Send LightChangedState!
+//			Send SendConsumptionState!
 //---------!
 hold in SendConsumptionState for time 1!
 after SendConsumptionState output Consumption!
 from SendConsumptionState go to ReadyState!
+output event for SendConsumptionState
+<%
+output.add(outConsumption, consumptionParam);
+System.out.println("----------------------- LightHubA Sent Consumption ------------------------");
+%>!
+
+//-----------------------------------------------!
+//			Send SendingCarCrashState!
+//---------!
+hold in SendingCarCrashState for time 1!
+from SendingCarCrashState go to ReadyState!
+internal event for SendingCarCrashState
+<%
+	System.out.println("----------------------- LightHubA internal event ------------------------");
+	
+	String params[] = carCrashEvent.split(";");
+	double latitude = toDouble(params[2]);
+	double longitude = toDouble(params[3]);
+	boolean anyChange = false;
+	
+	for(Luminaire luminaire : listLuminaries)
+	{
+		boolean normalBehavior = luminaire.getBehavior() == Luminaire.NORMAL_BEHAVIOR;
+		if (normalBehavior && isWithinRange(luminaire, latitude, longitude, Range)) {
+			anyChange = true;
+			luminaire.setBehavior(Luminaire.CAR_CRASH_BEHAVIOR);
+			System.out.println("----------------------- LightHubA go to SendCarCrashTo"+luminaire.getName()+"State ------------------------");
+			holdIn("SendCarCrashTo"+luminaire.getName()+"State", 1.0);
+			break;
+		}
+	}
+	
+	if (!anyChange) {
+		lightChangedStateParam = new LightChangedState(datetime + ";" + "light_changed_state" + ";" + lightChangedStateList);
+		holdIn("SendLightChangedState", 1.0);
+	}
+%>!
+
+//-----------------------------------------------!
+//			Send CarCrashBehaviorA1!
+//---------!
+hold in SendCarCrashToA1State for time 1!
+after SendCarCrashToA1State output CarCrashBehaviorA1!
+from SendCarCrashToA1State go to WaitForLightChangedCarCrashState!
+output event for SendCarCrashToA1State
+<%
+output.add(outCarCrashBehaviorA1, new CarCrashBehaviorA1(carCrashParam));
+System.out.println("----------------------- LightHubA Sent CarCrashBehaviorA1 "+carCrashParam+" ------------------------");
+%>!
+
+//-----------------------------------------------!
+//			Send CarCrashBehaviorA2!
+//---------!
+hold in SendCarCrashToA2State for time 1!
+after SendCarCrashToA2State output CarCrashBehaviorA2!
+from SendCarCrashToA2State go to WaitForLightChangedCarCrashState!
+output event for SendCarCrashToA2State
+<%
+System.out.println("----------------------- LightHubA Sent CarCrashBehaviorA2 "+carCrashParam+" ------------------------");
+output.add(outCarCrashBehaviorA2, new CarCrashBehaviorA2(carCrashParam));
+System.out.println("----------------------- LightHubA Sent CarCrashBehaviorA2 "+carCrashParam+" ------------------------");
+%>!
+
+//-----------------------------------------------!
+//			Wait for WaitForLightChangedStateLoop
+//---------!
+passivate in WaitForLightChangedCarCrashState!
+when in WaitForLightChangedCarCrashState and receive LightChangedState go to SendingCarCrashState!
+external event for WaitForLightChangedCarCrashState with LightChangedState
+<%
+LightChangedState event = (LightChangedState) messageList.get(0).getData();
+String payload = event.getValue();
+String[] params = payload.split(";");
+datetime = params[0];
+
+if (params.length > 2) {
+	if (lightChangedStateList.isEmpty()) {
+		lightChangedStateList = params[2];
+	} else {
+		lightChangedStateList += "," + params[2];
+	}
+}
+System.out.println("----------------------- LightHubA Received LightChangedState ------------------------");
+%>!
+
+//-----------------------------------------------!
+//			Send SendingCarCrashState!
+//---------!
+hold in SendingRestoreBehaviorState for time 1!
+from SendingRestoreBehaviorState go to ReadyState!
+internal event for SendingRestoreBehaviorState
+<%
+	System.out.println("----------------------- LightHubA internal event ------------------------");
+	
+	String params[] = restoreEvent.split(";");
+	double latitude = toDouble(params[2]);
+	double longitude = toDouble(params[3]);
+	boolean anyChange = false;
+	
+	for(Luminaire luminaire : listLuminaries)
+	{
+		boolean carCrashBehavior = luminaire.getBehavior() == Luminaire.CAR_CRASH_BEHAVIOR;
+		if (carCrashBehavior && isWithinRange(luminaire, latitude, longitude, Range)) {
+			anyChange = true;
+			luminaire.setBehavior(Luminaire.NORMAL_BEHAVIOR);
+			System.out.println("----------------------- LightHubA go to SendRestoreBehaviorTo"+luminaire.getName()+"State ------------------------");
+			holdIn("SendRestoreBehaviorTo"+luminaire.getName()+"State", 1.0);
+			break;
+		}
+	}
+	
+	if (!anyChange) {
+		lightChangedStateParam = new LightChangedState(datetime + ";" + "light_changed_state" + ";" + lightChangedStateList);
+		holdIn("SendLightChangedState", 1.0);
+	}
+%>!
+
+//-----------------------------------------------!
+//			Send RestoreBehaviorA1!
+//---------!
+hold in SendRestoreBehaviorToA1State for time 1!
+after SendRestoreBehaviorToA1State output RestoreBehaviorA1!
+from SendRestoreBehaviorToA1State go to WaitForLightChangedRestoreState!
+output event for SendRestoreBehaviorToA1State
+<%
+output.add(outRestoreBehaviorA1, new RestoreBehaviorA1(restoreBehaviorParam));
+System.out.println("----------------------- LightHubA Sent RestoreBehaviorA1 "+restoreBehaviorParam+" ------------------------");
+%>!
+
+//-----------------------------------------------!
+//			Send RestoreBehaviorA2!
+//---------!
+hold in SendRestoreBehaviorToA2State for time 1!
+after SendRestoreBehaviorToA2State output RestoreBehaviorA2!
+from SendRestoreBehaviorToA2State go to WaitForLightChangedRestoreState!
+output event for SendRestoreBehaviorToA2State
+<%
+output.add(outRestoreBehaviorA2, new RestoreBehaviorA2(restoreBehaviorParam));
+System.out.println("----------------------- LightHubA Sent RestoreBehaviorA1 "+restoreBehaviorParam+" ------------------------");
+%>!
+
+//-----------------------------------------------!
+//			Wait for LightChangedState
+//---------!
+passivate in WaitForLightChangedRestoreState!
+when in WaitForLightChangedRestoreState and receive LightChangedState go to SendingRestoreBehaviorState!
+external event for WaitForLightChangedRestoreState with LightChangedState
+<%
+LightChangedState event = (LightChangedState) messageList.get(0).getData();
+String payload = event.getValue();
+String[] params = payload.split(";");
+datetime = params[0];
+
+if (params.length > 2) {
+	if (lightChangedStateList.isEmpty()) {
+		lightChangedStateList = params[2];
+	} else {
+		lightChangedStateList += "," + params[2];
+	}
+}
+System.out.println("----------------------- LightHubA Received LightChangedState ------------------------");
+%>!
+
+//-----------------------------------------------!
+//			Additional code!
+//---------!
+
+add additional code
+<%
+protected static final double Range = 50/1000; // KM
+
+class Luminaire {
+	private double latitude;
+	private double longitude;
+	private String name;
+	private boolean on;
+	private int behavior;
+	public static final int NORMAL_BEHAVIOR = 0;
+	public static final int CAR_CRASH_BEHAVIOR = 1;
+	
+	public Luminaire(String name, double latitude, double longitude)
+	{
+		this.name = name;
+		this.longitude = longitude;
+		this.latitude = latitude;
+		this.on = false;
+		this.behavior = Luminaire.NORMAL_BEHAVIOR;
+	}
+	
+	public double getLatitude() {
+		return this.latitude;
+	}
+	
+	public double getLongitude() {
+		return this.longitude;
+	}
+	
+	public String getName() {
+		return this.name;
+	}
+	
+	public String toString() {
+		return "Luminaire {\"name\": \""+ this.name+"\", \"latitude\": \""+ this.latitude +"\", \"longitude\": \""+ longitude +"\"}";
+	}
+	
+	public void turnOn() {
+		this.on = true;
+	}
+	
+	public void turnOff() {
+		this.on = false;
+	}
+	
+	public void setBehavior(int behavior) {
+		this.behavior = behavior;
+	}
+	
+	public int getBehavior() {
+		return this.behavior;
+	}
+	
+	public boolean getOn() {
+		return this.on;
+	}
+}
+
+protected LightChangedState buildLightChangedState(ArrayList<Message<LightChangedState>> messageList) {
+	ArrayList<String> list = new ArrayList<String>();
+	
+	LightChangedState event;
+	String[] params = new String[2];
+	
+	int size = messageList.size();
+	
+	for(int i = 0; i < size; i++) {
+		event = (LightChangedState) messageList.get(i).getData();
+		params = event.getValue().split(";");
+		
+		if (params.length > 2) {
+			list.add(params[2]);	
+		}		
+	}
+	
+	if (list.size() > 0) {
+		return new LightChangedState(params[0] + ";" + params[1] + ";" + join(list, ","));
+	} else {
+		return new LightChangedState(params[0] + ";" + params[1]);
+	}
+}
+
+protected Consumption buildConsumption(ArrayList<Message<Serializable>> messageList) {
+	ArrayList<String> list = new ArrayList<String>();
+	
+	DoneTurnOff event = (DoneTurnOff) messageList.get(0).getData();
+	String[] params = event.getValue().split(";");
+	
+	list.add(params[2]);
+	
+	int size = messageList.size();
+	
+	for(int i = 1; i < size; i++) {
+		event = (DoneTurnOff) messageList.get(i).getData();
+		params = event.getValue().split(";");
+		
+		if (params.length > 2) {
+			list.add(params[2]);
+		}
+	}
+	
+	return new Consumption(params[0] + ";consumption;" + join(list, ","));
+}
+
+protected String buildCarCrashBehavior(String event) {
+	String[] params = event.split(";");
+	double latitude = toDouble(params[2]);
+	double longitude = toDouble(params[3]);
+	
+	return params[0] + ";car_crash_behavior;" + AffectedLuminaires(latitude, longitude, Range);
+}
+
+protected String buildRestoreBehavior(String event) {
+	String[] params = event.split(";");
+	double latitude = toDouble(params[2]);
+	double longitude = toDouble(params[3]);
+	
+	return params[0] + ";restore_behavior;" + AffectedLuminaires(latitude, longitude, Range);
+}
+
+protected double toDouble(String str) {
+	try {
+		return Double.parseDouble(str);
+	} catch(Exception e) {
+		return 0.0;
+	}
+}
+
+protected String AffectedLuminaires(double latitude, double longitude, double range) {
+	ArrayList<String> list = new ArrayList<String>();
+	
+	for(Luminaire luminaire : listLuminaries)
+	{
+		if (isWithinRange(luminaire, latitude, longitude, range)) {
+			list.add(luminaire.getName());
+		}
+	}	
+	
+	return join(list, ",");
+}
+
+protected String join(ArrayList<String> list, String separator) {
+	StringBuilder builder = new StringBuilder();
+	
+	int size = list.size();
+	
+	if (size > 0) {
+		
+		String value = list.get(0);
+		
+		builder.append(value);
+		
+		for(int i = 1; i < size; i++)
+		{
+			value = list.get(i);
+			
+			builder.append(separator + value);
+		}
+	}
+	
+	return builder.toString();
+}
+
+protected boolean isWithinRange(Luminaire luminaire, double latitude, double longitude, double range) {
+	double lat1 = luminaire.getLatitude();
+	double lon1 = luminaire.getLongitude();
+	// double dist = distance(lat1, lon1, latitude, longitude);
+	double dist = distanceP(lat1, lon1, latitude, longitude);
+	
+	// if (dist <= range)
+	if (dist <= 50)
+		return true;
+	return false;	
+}
+
+protected double distance(double lat1, double lon1, double lat2, double lon2) {
+	lat1 = degreeToRad(lat1);
+	lon1 = degreeToRad(lon1);
+	lat2 = degreeToRad(lat2);
+	lon2 = degreeToRad(lon2);
+	return Math.acos(Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(lon1 - lon2)) * 6371;
+}
+
+protected double distanceP(double x1, double y1, double x2, double y2) {
+	return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+}
+
+protected double degreeToRad(double degree) {
+	return degree / Math.PI;
+}
+%>!

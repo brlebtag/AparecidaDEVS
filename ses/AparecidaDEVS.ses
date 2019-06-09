@@ -1,48 +1,163 @@
-from the sos perspective, AparecidaDEVS is made of PrefectureSystem, IlluminationSystem, EagleEyesSystem, and AparecidaSystem!
-
+///////////////////////////////////////////!
+// Simulation Components!
+//////////!
+from the sos perspective, AparecidaDEVS is made of StimuliGen, PrefectureSystem, IlluminationSystem, EagleEyesSystem, and AparecidaSystem!
 from the prefecturesys perspective, PrefectureSystem is made of OCC!
-from the lightsys perspective, IlluminationSystem is made of StimuliGenLightHubA, LightCentral, LightHubA, and LuminareA1!
-from the aparecidasys perspective, AparecidaSystem is made of StimuliGenSoSAparecida and SoSAparecida!
-from the eaglessys perspective, EagleEyesSystem is made of StimuliGenCamera1, Camera1, and EagleEyes!
+from the lightsys perspective, IlluminationSystem is made of LightCentral, LightHubA, LuminareA1, and LuminareA2!
+from the aparecidasys perspective, AparecidaSystem is made of SoSAparecida!
+from the eaglessys perspective, EagleEyesSystem is made of Camera1 and EagleEyes!
 
+///////////////////////////////////////////!
+// OCC CarCrashResolved Stimuli flux
+//
+// StimuliGen --> 0CC --> PrefectureSystem --> IlluminationSystem
+//
+//////////!
+from the sos perspective, StimuliGen sends CarCrashResolvedOCC to PrefectureSystem!
+from the prefecturesys perspective, PrefectureSystem sends CarCrashResolvedOCC to OCC!
+from the prefecturesys perspective, OCC sends CarCrashResolved to PrefectureSystem!
+from the sos perspective, PrefectureSystem sends CarCrashResolved to IlluminationSystem!
 
-from the eaglessys perspective, StimuliGenCamera1 sends CarCrash to Camera1!
+///////////////////////////////////////////!
+// OCC CarCrashResolved Stimuli flux
+//
+// IlluminationSystem --> LightCentral --> LightHubA --> LuminareA1,LuminareA2
+//
+//////////!
+from the lightsys perspective, IlluminationSystem sends CarCrashResolved to LightCentral!
+from the lightsys perspective, LightCentral sends RestoreBehaviorA to LightHubA!
+from the lightsys perspective, LightHubA sends RestoreBehaviorA1 to LuminareA1!
+from the lightsys perspective, LightHubA sends RestoreBehaviorA2 to LuminareA2!
+
+///////////////////////////////////////////!
+// Camera CarCrashResolved Stimuli flux
+//
+// StimuliGen --> Camera1 --> EagleEyesSystem --> IlluminationSystem
+//
+//////////!
+from the sos perspective, StimuliGen sends CarCrashResolvedCamera1 to EagleEyesSystem!
+from the eaglessys perspective, EagleEyesSystem sends CarCrashResolvedCamera1 to Camera1!
+from the eaglessys perspective, Camera1 sends CarCrashResolved to EagleEyesSystem!
+from the sos perspective, EagleEyesSystem sends CarCrashResolved to IlluminationSystem!
+
+///////////////////////////////////////////!
+// Camera CarCrash Stimuli flux
+//
+// StimuliGen --> Camera1 --> EagleEyes --> EagleEyesSystem --> PrefectureSystem, IlluminationSystem
+//
+//////////!
+from the sos perspective, StimuliGen sends CarCrashCamera1 to EagleEyesSystem!
+from the eaglessys perspective, EagleEyesSystem sends CarCrashCamera1 to Camera1!
 from the eaglessys perspective, Camera1 sends CarCrash to EagleEyes!
 from the eaglessys perspective, EagleEyes sends CarCrash to EagleEyesSystem!
-
 from the sos perspective, EagleEyesSystem sends CarCrash to PrefectureSystem!
 from the sos perspective, EagleEyesSystem sends CarCrash to IlluminationSystem!
 
+
+///////////////////////////////////////////!
+// Camera CarCrash Stimuli flux
+//
+// PrefectureSystem --> OCC
+//
+//////////!
 from the prefecturesys perspective, PrefectureSystem sends CarCrash to OCC!
-from the prefecturesys perspective, PrefectureSystem sends ManualCarCrash to OCC!
-from the prefecturesys perspective, OCC sends CarCrash to PrefectureSystem!
 
-from the sos perspective, PrefectureSystem sends CarCrash to IlluminationSystem!
 
+///////////////////////////////////////////!
+// CarCrash Stimuli flux
+//
+// IlluminationSystem --> LightCentral --> LightHubA --> LuminareA1, LuminareA2
+//
+//////////!
 from the lightsys perspective, IlluminationSystem sends CarCrash to LightCentral!
+from the lightsys perspective, LightCentral sends CarCrashBehaviorA to LightHubA!
+from the lightsys perspective, LightHubA sends CarCrashBehaviorA1 to LuminareA1!
+from the lightsys perspective, LightHubA sends CarCrashBehaviorA2 to LuminareA2!
 
-from the lightsys perspective, LightCentral sends CarCrash to LightHubA!
-from the lightsys perspective, LightHubA sends CarCrash to LuminareA1!
+///////////////////////////////////////////!
+// LightChangedState Stimuli flux
+//
+// LuminareA1, LuminareA2 --> LightHubA --> LightCentral --> IlluminationSystem --> PrefectureSystem
+//
+//////////!
 from the lightsys perspective, LuminareA1 sends LightChangedState to LightHubA!
-from the lightsys perspective, LuminareA1 sends DoneTurnOn to LightHubA!
-from the lightsys perspective, LuminareA1 sends DoneTurnOff to LightHubA!
+from the lightsys perspective, LuminareA2 sends LightChangedState to LightHubA!
 from the lightsys perspective, LightHubA sends LightChangedState to LightCentral!
 from the lightsys perspective, LightCentral sends LightChangedState to IlluminationSystem!
+from the sos perspective, IlluminationSystem sends LightChangedState to PrefectureSystem!
 
-from the lightsys perspective, StimuliGenLightHubA sends TurnOn to LightHubA!
-from the lightsys perspective, StimuliGenLightHubA sends TurnOff to LightHubA!
+///////////////////////////////////////////!
+// LightChangedState Stimuli flux
+//
+// PrefectureSystem --> OCC
+//
+//////////!
+from the prefecturesys perspective, PrefectureSystem sends LightChangedState to OCC!
 
+///////////////////////////////////////////!
+// Aparecida CarCrash Stimuli flux
+//
+// StimuliGen --> SoSAparecida --> AparecidaSystem --> PrefectureSystem
+//
+//////////!
+from the sos perspective, StimuliGen sends CarCrashSOSAparecida to AparecidaSystem!
+from the aparecidasys perspective, AparecidaSystem sends CarCrashSOSAparecida to SoSAparecida!
+from the aparecidasys perspective, SoSAparecida sends ManualCarCrash to AparecidaSystem!
+from the sos perspective, AparecidaSystem sends ManualCarCrash to PrefectureSystem!
+
+///////////////////////////////////////////!
+// Aparecida CarCrash Stimuli flux
+//
+// PrefectureSystem --> OCC --> PrefectureSystem --> IlluminationSystem
+//
+//////////!
+from the prefecturesys perspective, PrefectureSystem sends ManualCarCrash to OCC!
+from the prefecturesys perspective, OCC sends CarCrash to PrefectureSystem!
+from the sos perspective, PrefectureSystem sends CarCrash to IlluminationSystem!
+
+///////////////////////////////////////////!
+// TurnOn and TurnOff Stimuli flux
+//
+// TurnOn/TurnOff --> LightHubA --> LuminareA1/LuminareA2
+//
+//////////!
+from the sos perspective, StimuliGen sends TurnOn to IlluminationSystem!
+from the sos perspective, StimuliGen sends TurnOff to IlluminationSystem!
+from the lightsys perspective, IlluminationSystem sends TurnOn to LightHubA!
+from the lightsys perspective, IlluminationSystem sends TurnOff to LightHubA!
 from the lightsys perspective, LightHubA sends TurnOn to LuminareA1!
+from the lightsys perspective, LightHubA sends TurnOn to LuminareA2!
 from the lightsys perspective, LightHubA sends TurnOff to LuminareA1!
+from the lightsys perspective, LightHubA sends TurnOff to LuminareA2!
 
+///////////////////////////////////////////!
+// DoneTurnOn and DoneTurnOff Stimuli flux
+//
+// LuminareA1/LuminareA2 --> LightHubA
+//
+//////////!
+from the lightsys perspective, LuminareA1 sends DoneTurnOn to LightHubA!
+from the lightsys perspective, LuminareA2 sends DoneTurnOn to LightHubA!
+from the lightsys perspective, LuminareA1 sends DoneTurnOff to LightHubA!
+from the lightsys perspective, LuminareA2 sends DoneTurnOff to LightHubA!
+
+///////////////////////////////////////////!
+// Consumption Stimuli flux
+//
+// LightHubA --> LightCentral --> IlluminationSystem --> PrefectureSystem
+//
+//////////!
 from the lightsys perspective, LightHubA sends Consumption to LightCentral!
 from the lightsys perspective, LightCentral sends Consumption to IlluminationSystem!
 from the sos perspective, IlluminationSystem sends Consumption to PrefectureSystem!
+
+///////////////////////////////////////////!
+// Consumption Stimuli flux
+//
+// PrefectureSystem --> OCC
+//
+//////////!
 from the prefecturesys perspective, PrefectureSystem sends Consumption to OCC!
 
-from the sos perspective, IlluminationSystem sends LightChangedState to PrefectureSystem!
-from the prefecturesys perspective, PrefectureSystem sends LightChangedState to OCC!
 
-from the aparecidasys perspective, StimuliGenSoSAparecida sends ManualCarCrash to SoSAparecida!
-from the aparecidasys perspective, SoSAparecida sends ManualCarCrash to AparecidaSystem!
-from the sos perspective, AparecidaSystem sends ManualCarCrash to PrefectureSystem!
+

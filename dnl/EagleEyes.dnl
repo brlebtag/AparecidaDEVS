@@ -17,7 +17,7 @@ when in ReadyState and receive CarCrash go to SendCarCrashState!
 external event for ReadyState with CarCrash
 <%
 carCrashParam = (CarCrash) messageList.get(0).getData();
-System.out.println("----------------------- EagleEyes Received ------------------------");
+System.out.println("----------------------- EagleEyes Received CarCrash ------------------------");
 %>!
 
 //-----------------------------------------------!
@@ -29,5 +29,5 @@ from SendCarCrashState go to ReadyState!
 output event for SendCarCrashState
 <%
 output.add(outCarCrash, carCrashParam);
-System.out.println("----------------------- EagleEyes Sent ------------------------");
+System.out.println("----------------------- EagleEyes Sent CarCrash ------------------------");
 %>!

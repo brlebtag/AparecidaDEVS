@@ -2,21 +2,32 @@
 //			Messages typedef!
 //---------!
 accepts input on CarCrash with type CarCrash!
+accepts input on CarCrashCamera1 with type CarCrashCamera1!
+accepts input on CarCrashResolvedCamera1 with type CarCrashResolvedCamera1!
 
 //-----------------------------------------------!
 //			Variables!
 //---------!
 use carCrashParam with type CarCrash!
+use carCrashResolvedParam with type CarCrashResolved!
 
 //-----------------------------------------------!
 //			Process input!
 //---------!
 to start passivate in ReadyState!
-when in ReadyState and receive CarCrash go to SendCarCrashState!
-external event for ReadyState with CarCrash
+when in ReadyState and receive CarCrashCamera1 go to SendCarCrashState!
+when in ReadyState and receive CarCrashResolvedCamera1 go to SendCarCrashResolvedCamera1State!
+external event for ReadyState with CarCrashCamera1
 <%
-carCrashParam = (CarCrash) messageList.get(0).getData();
-System.out.println("----------------------- EagleEyes Received ------------------------");
+CarCrashCamera1 carCrash = (CarCrashCamera1) messageList.get(0).getData();
+carCrashParam = new CarCrash(carCrash.getValue()); 
+System.out.println("----------------------- Camera1 Received CarCrashCamera1 ------------------------");
+%>!
+external event for ReadyState with CarCrashResolvedCamera1
+<%
+CarCrashResolvedCamera1 carCrashResolved = (CarCrashResolvedCamera1) messageList.get(0).getData();
+carCrashResolvedParam = new CarCrashResolved(carCrashResolved.getValue()); 
+System.out.println("----------------------- Camera1 Received CarCrashCamera1 ------------------------");
 %>!
 
 //-----------------------------------------------!
@@ -28,5 +39,17 @@ from SendCarCrashState go to ReadyState!
 output event for SendCarCrashState
 <%
 output.add(outCarCrash, carCrashParam);
-System.out.println("----------------------- EagleEyes Sent ------------------------");
+System.out.println("----------------------- Camera1 Sent CarCrash ------------------------");
+%>!
+
+//-----------------------------------------------!
+//			Send CarCrashResolved!
+//---------!
+hold in SendCarCrashResolvedCamera1State for time 1!
+after SendCarCrashResolvedCamera1State output CarCrashResolved!
+from SendCarCrashResolvedCamera1State go to ReadyState!
+output event for SendCarCrashResolvedCamera1State
+<%
+output.add(outCarCrashResolved, carCrashResolvedParam);
+System.out.println("----------------------- Camera1 Sent CarCrashResolved ------------------------");
 %>!

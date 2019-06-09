@@ -230,6 +230,42 @@ System.out.println("----------------------- LightHubB Sent CarCrashBehaviorB3 "+
 %>!
 
 //-----------------------------------------------!
+//			Send CarCrashBehaviorB4!
+//---------!
+hold in SendCarCrashToB4State for time 1!
+after SendCarCrashToB4State output CarCrashBehaviorB4!
+from SendCarCrashToB4State go to WaitForLightChangedCarCrashState!
+output event for SendCarCrashToB4State
+<%
+output.add(outCarCrashBehaviorB4, new CarCrashBehaviorB4(carCrashParam));
+System.out.println("----------------------- LightHubB Sent CarCrashBehaviorB4 "+carCrashParam+" ------------------------");
+%>!
+
+//-----------------------------------------------!
+//			Send CarCrashBehaviorB5!
+//---------!
+hold in SendCarCrashToB5State for time 1!
+after SendCarCrashToB5State output CarCrashBehaviorB5!
+from SendCarCrashToB5State go to WaitForLightChangedCarCrashState!
+output event for SendCarCrashToB5State
+<%
+output.add(outCarCrashBehaviorB5, new CarCrashBehaviorB5(carCrashParam));
+System.out.println("----------------------- LightHubB Sent CarCrashBehaviorB5 "+carCrashParam+" ------------------------");
+%>!
+
+//-----------------------------------------------!
+//			Send CarCrashBehaviorB6!
+//---------!
+hold in SendCarCrashToB6State for time 1!
+after SendCarCrashToB6State output CarCrashBehaviorB6!
+from SendCarCrashToB6State go to WaitForLightChangedCarCrashState!
+output event for SendCarCrashToB6State
+<%
+output.add(outCarCrashBehaviorB6, new CarCrashBehaviorB6(carCrashParam));
+System.out.println("----------------------- LightHubB Sent CarCrashBehaviorB6 "+carCrashParam+" ------------------------");
+%>!
+
+//-----------------------------------------------!
 //			Wait for WaitForLightChangedStateLoop
 //---------!
 passivate in WaitForLightChangedCarCrashState!
@@ -317,6 +353,42 @@ output event for SendRestoreBehaviorToB3State
 <%
 output.add(outRestoreBehaviorB3, new RestoreBehaviorB3(restoreBehaviorParam));
 System.out.println("----------------------- LightHubB Sent RestoreBehaviorB3 "+restoreBehaviorParam+" ------------------------");
+%>!
+
+//-----------------------------------------------!
+//			Send RestoreBehaviorB4!
+//---------!
+hold in SendRestoreBehaviorToB4State for time 1!
+after SendRestoreBehaviorToB4State output RestoreBehaviorB4!
+from SendRestoreBehaviorToB4State go to WaitForLightChangedRestoreState!
+output event for SendRestoreBehaviorToB4State
+<%
+output.add(outRestoreBehaviorB4, new RestoreBehaviorB4(restoreBehaviorParam));
+System.out.println("----------------------- LightHubB Sent RestoreBehaviorB4 "+restoreBehaviorParam+" ------------------------");
+%>!
+
+//-----------------------------------------------!
+//			Send RestoreBehaviorB5!
+//---------!
+hold in SendRestoreBehaviorToB5State for time 1!
+after SendRestoreBehaviorToB5State output RestoreBehaviorB5!
+from SendRestoreBehaviorToB5State go to WaitForLightChangedRestoreState!
+output event for SendRestoreBehaviorToB5State
+<%
+output.add(outRestoreBehaviorB5, new RestoreBehaviorB5(restoreBehaviorParam));
+System.out.println("----------------------- LightHubB Sent RestoreBehaviorB5 "+restoreBehaviorParam+" ------------------------");
+%>!
+
+//-----------------------------------------------!
+//			Send RestoreBehaviorB6!
+//---------!
+hold in SendRestoreBehaviorToB6State for time 1!
+after SendRestoreBehaviorToB6State output RestoreBehaviorB6!
+from SendRestoreBehaviorToB6State go to WaitForLightChangedRestoreState!
+output event for SendRestoreBehaviorToB6State
+<%
+output.add(outRestoreBehaviorB6, new RestoreBehaviorB6(restoreBehaviorParam));
+System.out.println("----------------------- LightHubB Sent RestoreBehaviorB6 "+restoreBehaviorParam+" ------------------------");
 %>!
 
 //-----------------------------------------------!

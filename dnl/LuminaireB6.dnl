@@ -1,0 +1,103 @@
+//-----------------------------------------------!
+//			Messages typedef!
+//---------!
+accepts input on LightChangedState with type LightChangedState!
+accepts input on CarCrashBehaviorB6 with type CarCrashBehaviorB6!
+accepts input on RestoreBehaviorB6 with type RestoreBehaviorB6!
+
+//-----------------------------------------------!
+//			Variables!
+//---------!
+use datetime with type String!
+use isMe with type boolean!
+//-----------------------------------------------!
+//			ReadyState!
+//---------!
+to start passivate in ReadyState!
+when in ReadyState and receive CarCrashBehaviorB6 go to SendLightChangedState!
+when in ReadyState and receive TurnOn go to SendDoneTurnOnState!
+when in ReadyState and receive TurnOff go to SendDoneTurnOffState!
+when in ReadyState and receive RestoreBehaviorB6 go to SendLightChangedState!
+external event for ReadyState with CarCrashBehaviorB6
+<%
+CarCrashBehaviorB6 event = (CarCrashBehaviorB6) messageList.get(0).getData();
+String[] params = event.getValue().split(";");
+datetime = params[0];
+isMe = contains(name, params[2].split(","));
+System.out.println("----------------------- LuminareB6 IsMe "+ (isMe ? "true": false) +" ------------------------");
+System.out.println("----------------------- LuminareB6 Received CarCrashBehaviorA1 ------------------------");
+%>!
+external event for ReadyState with TurnOn
+<%
+TurnOn event = (TurnOn) messageList.get(0).getData();
+String[] params = event.getValue().split(";");
+datetime = params[0];
+System.out.println("----------------------- LuminareB6 Received TurnOn ------------------------");
+%>!
+external event for ReadyState with TurnOff
+<%
+TurnOff event = (TurnOff) messageList.get(0).getData();
+String[] params = event.getValue().split(";");
+datetime = params[0];
+System.out.println("----------------------- LuminareB6 Received TurnOff ------------------------");
+%>!
+external event for ReadyState with RestoreBehaviorB6
+<%
+RestoreBehaviorB6 event = (RestoreBehaviorB6) messageList.get(0).getData();
+String[] params = event.getValue().split(";");
+datetime = params[0];
+%>!
+
+//-----------------------------------------------!
+//			Send LightChangedState!
+//---------!
+hold in SendLightChangedState for time 1!
+after SendLightChangedState output LightChangedState!
+from SendLightChangedState go to ReadyState!
+output event for SendLightChangedState
+<%
+if (isMe) {
+	output.add(outLightChangedState, new LightChangedState(datetime + ";" + "light_changed_state" + ";" + name));	
+} else {
+	output.add(outLightChangedState, new LightChangedState(datetime + ";" + "light_changed_state"));
+}
+
+System.out.println("----------------------- LuminareB6 Sent SendCarCrashState ------------------------");
+%>!
+
+//-----------------------------------------------!
+//			Send DoneTurnOn!
+//---------!
+hold in SendDoneTurnOnState for time 1!
+after SendDoneTurnOnState output DoneTurnOn!
+from SendDoneTurnOnState go to ReadyState!
+
+//-----------------------------------------------!
+//			Send DoneTurnOff!
+//---------!
+hold in SendDoneTurnOffState for time 1!
+after SendDoneTurnOffState output DoneTurnOff!
+from SendDoneTurnOffState go to ReadyState!
+output event for SendDoneTurnOffState
+<%
+output.add(outDoneTurnOff, new DoneTurnOff(datetime + ";" + "done_turn_off" + ";" + name));
+System.out.println("----------------------- LuminareB6 Sent DoneTurnOff ------------------------");
+%>!
+
+//-----------------------------------------------!
+//			Additional code
+//---------!
+
+add additional code
+<%
+protected String name = "B6";
+protected boolean contains(String key, String[] values) {
+	System.out.println("----------------------- Key: |" + key + "| ------------------------");
+	
+	for(String v : values) {
+		System.out.println("----------------------- Value: |" + v + "| ------------------------");
+		if (v.trim().equals(key)) return true;
+	}
+	return false;
+}
+%>!

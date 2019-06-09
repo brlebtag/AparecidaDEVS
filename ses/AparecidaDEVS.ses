@@ -3,7 +3,7 @@
 //////////!
 from the sos perspective, AparecidaDEVS is made of StimuliGen, PrefectureSystem, IlluminationSystem, EagleEyesSystem, and AparecidaSystem!
 from the prefecturesys perspective, PrefectureSystem is made of OCC!
-from the lightsys perspective, IlluminationSystem is made of LightCentral, LightHubA, LuminaireA1, LuminaireA2, LightHubB, and LuminaireB1!
+from the lightsys perspective, IlluminationSystem is made of LightCentral, LightHubA, LightHubB, LuminaireA1, LuminaireA2, LuminaireA3, LuminaireB1, LuminaireB2, and LuminaireB3!
 from the aparecidasys perspective, AparecidaSystem is made of SoSAparecida!
 from the eaglessys perspective, EagleEyesSystem is made of Camera1 and EagleEyes!
 
@@ -28,8 +28,11 @@ from the lightsys perspective, IlluminationSystem sends CarCrashResolved to Ligh
 from the lightsys perspective, LightCentral sends RestoreBehaviorA to LightHubA!
 from the lightsys perspective, LightHubA sends RestoreBehaviorA1 to LuminaireA1!
 from the lightsys perspective, LightHubA sends RestoreBehaviorA2 to LuminaireA2!
+from the lightsys perspective, LightHubA sends RestoreBehaviorA3 to LuminaireA3!
 from the lightsys perspective, LightCentral sends RestoreBehaviorB to LightHubB!
 from the lightsys perspective, LightHubB sends RestoreBehaviorB1 to LuminaireB1!
+from the lightsys perspective, LightHubB sends RestoreBehaviorB2 to LuminaireB2!
+from the lightsys perspective, LightHubB sends RestoreBehaviorB3 to LuminaireB3!
 
 
 ///////////////////////////////////////////!
@@ -76,8 +79,11 @@ from the lightsys perspective, IlluminationSystem sends CarCrash to LightCentral
 from the lightsys perspective, LightCentral sends CarCrashBehaviorA to LightHubA!
 from the lightsys perspective, LightHubA sends CarCrashBehaviorA1 to LuminaireA1!
 from the lightsys perspective, LightHubA sends CarCrashBehaviorA2 to LuminaireA2!
+from the lightsys perspective, LightHubA sends CarCrashBehaviorA3 to LuminaireA3!
 from the lightsys perspective, LightCentral sends CarCrashBehaviorB to LightHubB!
 from the lightsys perspective, LightHubB sends CarCrashBehaviorB1 to LuminaireB1!
+from the lightsys perspective, LightHubB sends CarCrashBehaviorB2 to LuminaireB2!
+from the lightsys perspective, LightHubB sends CarCrashBehaviorB3 to LuminaireB3!
 
 ///////////////////////////////////////////!
 // LightChangedState Stimuli flux
@@ -87,8 +93,11 @@ from the lightsys perspective, LightHubB sends CarCrashBehaviorB1 to LuminaireB1
 //////////!
 from the lightsys perspective, LuminaireA1 sends LightChangedState to LightHubA!
 from the lightsys perspective, LuminaireA2 sends LightChangedState to LightHubA!
+from the lightsys perspective, LuminaireA3 sends LightChangedState to LightHubA!
 from the lightsys perspective, LightHubA sends LightChangedState to LightCentral!
 from the lightsys perspective, LuminaireB1 sends LightChangedState to LightHubB!
+from the lightsys perspective, LuminaireB2 sends LightChangedState to LightHubB!
+from the lightsys perspective, LuminaireB3 sends LightChangedState to LightHubB!
 from the lightsys perspective, LightHubB sends LightChangedState to LightCentral!
 from the lightsys perspective, LightCentral sends LightChangedState to IlluminationSystem!
 from the sos perspective, IlluminationSystem sends LightChangedState to PrefectureSystem!
@@ -136,10 +145,16 @@ from the lightsys perspective, IlluminationSystem sends TurnOn to LightHubB!
 from the lightsys perspective, IlluminationSystem sends TurnOff to LightHubB!
 from the lightsys perspective, LightHubA sends TurnOn to LuminaireA1!
 from the lightsys perspective, LightHubA sends TurnOn to LuminaireA2!
+from the lightsys perspective, LightHubA sends TurnOn to LuminaireA3!
 from the lightsys perspective, LightHubB sends TurnOn to LuminaireB1!
+from the lightsys perspective, LightHubB sends TurnOn to LuminaireB2!
+from the lightsys perspective, LightHubB sends TurnOn to LuminaireB3!
 from the lightsys perspective, LightHubA sends TurnOff to LuminaireA1!
 from the lightsys perspective, LightHubA sends TurnOff to LuminaireA2!
+from the lightsys perspective, LightHubA sends TurnOff to LuminaireA3!
 from the lightsys perspective, LightHubB sends TurnOff to LuminaireB1!
+from the lightsys perspective, LightHubB sends TurnOff to LuminaireB2!
+from the lightsys perspective, LightHubB sends TurnOff to LuminaireB3!
 
 ///////////////////////////////////////////!
 // DoneTurnOn and DoneTurnOff Stimuli flux
@@ -149,10 +164,16 @@ from the lightsys perspective, LightHubB sends TurnOff to LuminaireB1!
 //////////!
 from the lightsys perspective, LuminaireA1 sends DoneTurnOn to LightHubA!
 from the lightsys perspective, LuminaireA2 sends DoneTurnOn to LightHubA!
+from the lightsys perspective, LuminaireA3 sends DoneTurnOn to LightHubA!
 from the lightsys perspective, LuminaireB1 sends DoneTurnOn to LightHubB!
+from the lightsys perspective, LuminaireB2 sends DoneTurnOn to LightHubB!
+from the lightsys perspective, LuminaireB3 sends DoneTurnOn to LightHubB!
 from the lightsys perspective, LuminaireA1 sends DoneTurnOff to LightHubA!
 from the lightsys perspective, LuminaireA2 sends DoneTurnOff to LightHubA!
+from the lightsys perspective, LuminaireA3 sends DoneTurnOff to LightHubA!
 from the lightsys perspective, LuminaireB1 sends DoneTurnOff to LightHubB!
+from the lightsys perspective, LuminaireB2 sends DoneTurnOff to LightHubB!
+from the lightsys perspective, LuminaireB3 sends DoneTurnOff to LightHubB!
 
 ///////////////////////////////////////////!
 // Consumption Stimuli flux
@@ -172,6 +193,4 @@ from the sos perspective, IlluminationSystem sends Consumption to PrefectureSyst
 //
 //////////!
 from the prefecturesys perspective, PrefectureSystem sends Consumption to OCC!
-
-
 

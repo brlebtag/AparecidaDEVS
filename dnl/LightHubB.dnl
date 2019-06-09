@@ -206,6 +206,30 @@ System.out.println("----------------------- LightHubB Sent CarCrashBehaviorB1 "+
 %>!
 
 //-----------------------------------------------!
+//			Send CarCrashBehaviorB2!
+//---------!
+hold in SendCarCrashToB2State for time 1!
+after SendCarCrashToB2State output CarCrashBehaviorB2!
+from SendCarCrashToB2State go to WaitForLightChangedCarCrashState!
+output event for SendCarCrashToB2State
+<%
+output.add(outCarCrashBehaviorB2, new CarCrashBehaviorB2(carCrashParam));
+System.out.println("----------------------- LightHubB Sent CarCrashBehaviorB2 "+carCrashParam+" ------------------------");
+%>!
+
+//-----------------------------------------------!
+//			Send CarCrashBehaviorB3!
+//---------!
+hold in SendCarCrashToB3State for time 1!
+after SendCarCrashToB3State output CarCrashBehaviorB3!
+from SendCarCrashToB3State go to WaitForLightChangedCarCrashState!
+output event for SendCarCrashToB3State
+<%
+output.add(outCarCrashBehaviorB3, new CarCrashBehaviorB3(carCrashParam));
+System.out.println("----------------------- LightHubB Sent CarCrashBehaviorB3 "+carCrashParam+" ------------------------");
+%>!
+
+//-----------------------------------------------!
 //			Wait for WaitForLightChangedStateLoop
 //---------!
 passivate in WaitForLightChangedCarCrashState!
@@ -260,7 +284,7 @@ internal event for SendingRestoreBehaviorState
 %>!
 
 //-----------------------------------------------!
-//			Send RestoreBehaviorA1!
+//			Send RestoreBehaviorB1!
 //---------!
 hold in SendRestoreBehaviorToB1State for time 1!
 after SendRestoreBehaviorToB1State output RestoreBehaviorB1!
@@ -269,6 +293,30 @@ output event for SendRestoreBehaviorToB1State
 <%
 output.add(outRestoreBehaviorB1, new RestoreBehaviorB1(restoreBehaviorParam));
 System.out.println("----------------------- LightHubB Sent RestoreBehaviorB1 "+restoreBehaviorParam+" ------------------------");
+%>!
+
+//-----------------------------------------------!
+//			Send RestoreBehaviorB2!
+//---------!
+hold in SendRestoreBehaviorToB2State for time 1!
+after SendRestoreBehaviorToB2State output RestoreBehaviorB2!
+from SendRestoreBehaviorToB2State go to WaitForLightChangedRestoreState!
+output event for SendRestoreBehaviorToB2State
+<%
+output.add(outRestoreBehaviorB2, new RestoreBehaviorB2(restoreBehaviorParam));
+System.out.println("----------------------- LightHubB Sent RestoreBehaviorB2 "+restoreBehaviorParam+" ------------------------");
+%>!
+
+//-----------------------------------------------!
+//			Send RestoreBehaviorB2!
+//---------!
+hold in SendRestoreBehaviorToB3State for time 1!
+after SendRestoreBehaviorToB3State output RestoreBehaviorB3!
+from SendRestoreBehaviorToB3State go to WaitForLightChangedRestoreState!
+output event for SendRestoreBehaviorToB3State
+<%
+output.add(outRestoreBehaviorB3, new RestoreBehaviorB3(restoreBehaviorParam));
+System.out.println("----------------------- LightHubB Sent RestoreBehaviorB3 "+restoreBehaviorParam+" ------------------------");
 %>!
 
 //-----------------------------------------------!

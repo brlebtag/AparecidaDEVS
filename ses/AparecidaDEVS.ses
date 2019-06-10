@@ -3,7 +3,7 @@
 //////////!
 from the sos perspective, AparecidaDEVS is made of StimuliGen, PrefectureSystem, IlluminationSystem, EagleEyesSystem, and AparecidaSystem!
 from the prefecturesys perspective, PrefectureSystem is made of OCC!
-from the lightsys perspective, IlluminationSystem is made of LightCentral, LightHubA, LightHubB, LuminaireA1, LuminaireA2, LuminaireA3, LuminaireA4, LuminaireA5, LuminaireA6, LuminaireB1, LuminaireB2, LuminaireB3, LuminaireB4, LuminaireB5, and LuminaireB6!
+from the lightsys perspective, IlluminationSystem is made of LightCentral, LightHubA, LightHubB, LuminaireA1, LuminaireA2, LuminaireA3, LuminaireA4, LuminaireA5, LuminaireA6, LuminaireA7, LuminaireA8, LuminaireA9, LuminaireA10, LuminaireA11, LuminaireA12, LuminaireA13, LuminaireA14, LuminaireA15, LuminaireB1, LuminaireB2, LuminaireB3, LuminaireB4, LuminaireB5, LuminaireB6, LuminaireB7, LuminaireB8, LuminaireB9, LuminaireB10, LuminaireB11, LuminaireB12, LuminaireB13, LuminaireB14, and LuminaireB15!
 from the aparecidasys perspective, AparecidaSystem is made of SoSAparecida!
 from the eaglessys perspective, EagleEyesSystem is made of Camera1 and EagleEyes!
 
@@ -32,6 +32,15 @@ from the lightsys perspective, LightHubA sends RestoreBehaviorA3 to LuminaireA3!
 from the lightsys perspective, LightHubA sends RestoreBehaviorA4 to LuminaireA4!
 from the lightsys perspective, LightHubA sends RestoreBehaviorA5 to LuminaireA5!
 from the lightsys perspective, LightHubA sends RestoreBehaviorA6 to LuminaireA6!
+from the lightsys perspective, LightHubA sends RestoreBehaviorA7 to LuminaireA7!
+from the lightsys perspective, LightHubA sends RestoreBehaviorA8 to LuminaireA8!
+from the lightsys perspective, LightHubA sends RestoreBehaviorA9 to LuminaireA9!
+from the lightsys perspective, LightHubA sends RestoreBehaviorA10 to LuminaireA10!
+from the lightsys perspective, LightHubA sends RestoreBehaviorA11 to LuminaireA11!
+from the lightsys perspective, LightHubA sends RestoreBehaviorA12 to LuminaireA12!
+from the lightsys perspective, LightHubA sends RestoreBehaviorA13 to LuminaireA13!
+from the lightsys perspective, LightHubA sends RestoreBehaviorA14 to LuminaireA14!
+from the lightsys perspective, LightHubA sends RestoreBehaviorA15 to LuminaireA15!
 from the lightsys perspective, LightCentral sends RestoreBehaviorB to LightHubB!
 from the lightsys perspective, LightHubB sends RestoreBehaviorB1 to LuminaireB1!
 from the lightsys perspective, LightHubB sends RestoreBehaviorB2 to LuminaireB2!
@@ -39,6 +48,15 @@ from the lightsys perspective, LightHubB sends RestoreBehaviorB3 to LuminaireB3!
 from the lightsys perspective, LightHubB sends RestoreBehaviorB4 to LuminaireB4!
 from the lightsys perspective, LightHubB sends RestoreBehaviorB5 to LuminaireB5!
 from the lightsys perspective, LightHubB sends RestoreBehaviorB6 to LuminaireB6!
+from the lightsys perspective, LightHubB sends RestoreBehaviorB7 to LuminaireB7!
+from the lightsys perspective, LightHubB sends RestoreBehaviorB8 to LuminaireB8!
+from the lightsys perspective, LightHubB sends RestoreBehaviorB9 to LuminaireB9!
+from the lightsys perspective, LightHubB sends RestoreBehaviorB10 to LuminaireB10!
+from the lightsys perspective, LightHubB sends RestoreBehaviorB11 to LuminaireB11!
+from the lightsys perspective, LightHubB sends RestoreBehaviorB12 to LuminaireB12!
+from the lightsys perspective, LightHubB sends RestoreBehaviorB13 to LuminaireB13!
+from the lightsys perspective, LightHubB sends RestoreBehaviorB14 to LuminaireB14!
+from the lightsys perspective, LightHubB sends RestoreBehaviorB15 to LuminaireB15!
 
 
 ///////////////////////////////////////////!
@@ -89,6 +107,15 @@ from the lightsys perspective, LightHubA sends CarCrashBehaviorA3 to LuminaireA3
 from the lightsys perspective, LightHubA sends CarCrashBehaviorA4 to LuminaireA4!
 from the lightsys perspective, LightHubA sends CarCrashBehaviorA5 to LuminaireA5!
 from the lightsys perspective, LightHubA sends CarCrashBehaviorA6 to LuminaireA6!
+from the lightsys perspective, LightHubA sends CarCrashBehaviorA7 to LuminaireA7!
+from the lightsys perspective, LightHubA sends CarCrashBehaviorA8 to LuminaireA8!
+from the lightsys perspective, LightHubA sends CarCrashBehaviorA9 to LuminaireA9!
+from the lightsys perspective, LightHubA sends CarCrashBehaviorA10 to LuminaireA10!
+from the lightsys perspective, LightHubA sends CarCrashBehaviorA11 to LuminaireA11!
+from the lightsys perspective, LightHubA sends CarCrashBehaviorA12 to LuminaireA12!
+from the lightsys perspective, LightHubA sends CarCrashBehaviorA13 to LuminaireA13!
+from the lightsys perspective, LightHubA sends CarCrashBehaviorA14 to LuminaireA14!
+from the lightsys perspective, LightHubA sends CarCrashBehaviorA15 to LuminaireA15!
 from the lightsys perspective, LightCentral sends CarCrashBehaviorB to LightHubB!
 from the lightsys perspective, LightHubB sends CarCrashBehaviorB1 to LuminaireB1!
 from the lightsys perspective, LightHubB sends CarCrashBehaviorB2 to LuminaireB2!
@@ -96,6 +123,15 @@ from the lightsys perspective, LightHubB sends CarCrashBehaviorB3 to LuminaireB3
 from the lightsys perspective, LightHubB sends CarCrashBehaviorB4 to LuminaireB4!
 from the lightsys perspective, LightHubB sends CarCrashBehaviorB5 to LuminaireB5!
 from the lightsys perspective, LightHubB sends CarCrashBehaviorB6 to LuminaireB6!
+from the lightsys perspective, LightHubB sends CarCrashBehaviorB7 to LuminaireB7!
+from the lightsys perspective, LightHubB sends CarCrashBehaviorB8 to LuminaireB8!
+from the lightsys perspective, LightHubB sends CarCrashBehaviorB9 to LuminaireB9!
+from the lightsys perspective, LightHubB sends CarCrashBehaviorB10 to LuminaireB10!
+from the lightsys perspective, LightHubB sends CarCrashBehaviorB11 to LuminaireB11!
+from the lightsys perspective, LightHubB sends CarCrashBehaviorB12 to LuminaireB12!
+from the lightsys perspective, LightHubB sends CarCrashBehaviorB13 to LuminaireB13!
+from the lightsys perspective, LightHubB sends CarCrashBehaviorB14 to LuminaireB14!
+from the lightsys perspective, LightHubB sends CarCrashBehaviorB15 to LuminaireB15!
 
 ///////////////////////////////////////////!
 // LightChangedState Stimuli flux
@@ -109,6 +145,15 @@ from the lightsys perspective, LuminaireA3 sends LightChangedState to LightHubA!
 from the lightsys perspective, LuminaireA4 sends LightChangedState to LightHubA!
 from the lightsys perspective, LuminaireA5 sends LightChangedState to LightHubA!
 from the lightsys perspective, LuminaireA6 sends LightChangedState to LightHubA!
+from the lightsys perspective, LuminaireA7 sends LightChangedState to LightHubA!
+from the lightsys perspective, LuminaireA8 sends LightChangedState to LightHubA!
+from the lightsys perspective, LuminaireA9 sends LightChangedState to LightHubA!
+from the lightsys perspective, LuminaireA10 sends LightChangedState to LightHubA!
+from the lightsys perspective, LuminaireA11 sends LightChangedState to LightHubA!
+from the lightsys perspective, LuminaireA12 sends LightChangedState to LightHubA!
+from the lightsys perspective, LuminaireA13 sends LightChangedState to LightHubA!
+from the lightsys perspective, LuminaireA14 sends LightChangedState to LightHubA!
+from the lightsys perspective, LuminaireA15 sends LightChangedState to LightHubA!
 from the lightsys perspective, LightHubA sends LightChangedState to LightCentral!
 from the lightsys perspective, LuminaireB1 sends LightChangedState to LightHubB!
 from the lightsys perspective, LuminaireB2 sends LightChangedState to LightHubB!
@@ -116,6 +161,15 @@ from the lightsys perspective, LuminaireB3 sends LightChangedState to LightHubB!
 from the lightsys perspective, LuminaireB4 sends LightChangedState to LightHubB!
 from the lightsys perspective, LuminaireB5 sends LightChangedState to LightHubB!
 from the lightsys perspective, LuminaireB6 sends LightChangedState to LightHubB!
+from the lightsys perspective, LuminaireB7 sends LightChangedState to LightHubB!
+from the lightsys perspective, LuminaireB8 sends LightChangedState to LightHubB!
+from the lightsys perspective, LuminaireB9 sends LightChangedState to LightHubB!
+from the lightsys perspective, LuminaireB10 sends LightChangedState to LightHubB!
+from the lightsys perspective, LuminaireB11 sends LightChangedState to LightHubB!
+from the lightsys perspective, LuminaireB12 sends LightChangedState to LightHubB!
+from the lightsys perspective, LuminaireB13 sends LightChangedState to LightHubB!
+from the lightsys perspective, LuminaireB14 sends LightChangedState to LightHubB!
+from the lightsys perspective, LuminaireB15 sends LightChangedState to LightHubB!
 from the lightsys perspective, LightHubB sends LightChangedState to LightCentral!
 from the lightsys perspective, LightCentral sends LightChangedState to IlluminationSystem!
 from the sos perspective, IlluminationSystem sends LightChangedState to PrefectureSystem!
@@ -167,24 +221,61 @@ from the lightsys perspective, LightHubA sends TurnOn to LuminaireA3!
 from the lightsys perspective, LightHubA sends TurnOn to LuminaireA4!
 from the lightsys perspective, LightHubA sends TurnOn to LuminaireA5!
 from the lightsys perspective, LightHubA sends TurnOn to LuminaireA6!
+from the lightsys perspective, LightHubA sends TurnOn to LuminaireA7!
+from the lightsys perspective, LightHubA sends TurnOn to LuminaireA8!
+from the lightsys perspective, LightHubA sends TurnOn to LuminaireA9!
+from the lightsys perspective, LightHubA sends TurnOn to LuminaireA10!
+from the lightsys perspective, LightHubA sends TurnOn to LuminaireA11!
+from the lightsys perspective, LightHubA sends TurnOn to LuminaireA12!
+from the lightsys perspective, LightHubA sends TurnOn to LuminaireA13!
+from the lightsys perspective, LightHubA sends TurnOn to LuminaireA14!
+from the lightsys perspective, LightHubA sends TurnOn to LuminaireA15!
 from the lightsys perspective, LightHubB sends TurnOn to LuminaireB1!
 from the lightsys perspective, LightHubB sends TurnOn to LuminaireB2!
 from the lightsys perspective, LightHubB sends TurnOn to LuminaireB3!
 from the lightsys perspective, LightHubB sends TurnOn to LuminaireB4!
 from the lightsys perspective, LightHubB sends TurnOn to LuminaireB5!
 from the lightsys perspective, LightHubB sends TurnOn to LuminaireB6!
+from the lightsys perspective, LightHubB sends TurnOn to LuminaireB7!
+from the lightsys perspective, LightHubB sends TurnOn to LuminaireB8!
+from the lightsys perspective, LightHubB sends TurnOn to LuminaireB9!
+from the lightsys perspective, LightHubB sends TurnOn to LuminaireB10!
+from the lightsys perspective, LightHubB sends TurnOn to LuminaireB11!
+from the lightsys perspective, LightHubB sends TurnOn to LuminaireB12!
+from the lightsys perspective, LightHubB sends TurnOn to LuminaireB13!
+from the lightsys perspective, LightHubB sends TurnOn to LuminaireB14!
+from the lightsys perspective, LightHubB sends TurnOn to LuminaireB15!
 from the lightsys perspective, LightHubA sends TurnOff to LuminaireA1!
 from the lightsys perspective, LightHubA sends TurnOff to LuminaireA2!
 from the lightsys perspective, LightHubA sends TurnOff to LuminaireA3!
 from the lightsys perspective, LightHubA sends TurnOff to LuminaireA4!
 from the lightsys perspective, LightHubA sends TurnOff to LuminaireA5!
 from the lightsys perspective, LightHubA sends TurnOff to LuminaireA6!
+from the lightsys perspective, LightHubA sends TurnOff to LuminaireA7!
+from the lightsys perspective, LightHubA sends TurnOff to LuminaireA8!
+from the lightsys perspective, LightHubA sends TurnOff to LuminaireA9!
+from the lightsys perspective, LightHubA sends TurnOff to LuminaireA10!
+from the lightsys perspective, LightHubA sends TurnOff to LuminaireA11!
+from the lightsys perspective, LightHubA sends TurnOff to LuminaireA12!
+from the lightsys perspective, LightHubA sends TurnOff to LuminaireA13!
+from the lightsys perspective, LightHubA sends TurnOff to LuminaireA14!
+from the lightsys perspective, LightHubA sends TurnOff to LuminaireA15!
 from the lightsys perspective, LightHubB sends TurnOff to LuminaireB1!
 from the lightsys perspective, LightHubB sends TurnOff to LuminaireB2!
 from the lightsys perspective, LightHubB sends TurnOff to LuminaireB3!
 from the lightsys perspective, LightHubB sends TurnOff to LuminaireB4!
 from the lightsys perspective, LightHubB sends TurnOff to LuminaireB5!
 from the lightsys perspective, LightHubB sends TurnOff to LuminaireB6!
+from the lightsys perspective, LightHubB sends TurnOff to LuminaireB7!
+from the lightsys perspective, LightHubB sends TurnOff to LuminaireB8!
+from the lightsys perspective, LightHubB sends TurnOff to LuminaireB9!
+from the lightsys perspective, LightHubB sends TurnOff to LuminaireB10!
+from the lightsys perspective, LightHubB sends TurnOff to LuminaireB11!
+from the lightsys perspective, LightHubB sends TurnOff to LuminaireB12!
+from the lightsys perspective, LightHubB sends TurnOff to LuminaireB13!
+from the lightsys perspective, LightHubB sends TurnOff to LuminaireB14!
+from the lightsys perspective, LightHubB sends TurnOff to LuminaireB15!
+
 
 ///////////////////////////////////////////!
 // DoneTurnOn and DoneTurnOff Stimuli flux
@@ -198,24 +289,60 @@ from the lightsys perspective, LuminaireA3 sends DoneTurnOn to LightHubA!
 from the lightsys perspective, LuminaireA4 sends DoneTurnOn to LightHubA!
 from the lightsys perspective, LuminaireA5 sends DoneTurnOn to LightHubA!
 from the lightsys perspective, LuminaireA6 sends DoneTurnOn to LightHubA!
+from the lightsys perspective, LuminaireA7 sends DoneTurnOn to LightHubA!
+from the lightsys perspective, LuminaireA8 sends DoneTurnOn to LightHubA!
+from the lightsys perspective, LuminaireA9 sends DoneTurnOn to LightHubA!
+from the lightsys perspective, LuminaireA10 sends DoneTurnOn to LightHubA!
+from the lightsys perspective, LuminaireA11 sends DoneTurnOn to LightHubA!
+from the lightsys perspective, LuminaireA12 sends DoneTurnOn to LightHubA!
+from the lightsys perspective, LuminaireA13 sends DoneTurnOn to LightHubA!
+from the lightsys perspective, LuminaireA14 sends DoneTurnOn to LightHubA!
+from the lightsys perspective, LuminaireA15 sends DoneTurnOn to LightHubA!
 from the lightsys perspective, LuminaireB1 sends DoneTurnOn to LightHubB!
 from the lightsys perspective, LuminaireB2 sends DoneTurnOn to LightHubB!
 from the lightsys perspective, LuminaireB3 sends DoneTurnOn to LightHubB!
 from the lightsys perspective, LuminaireB4 sends DoneTurnOn to LightHubB!
 from the lightsys perspective, LuminaireB5 sends DoneTurnOn to LightHubB!
 from the lightsys perspective, LuminaireB6 sends DoneTurnOn to LightHubB!
+from the lightsys perspective, LuminaireB7 sends DoneTurnOn to LightHubB!
+from the lightsys perspective, LuminaireB8 sends DoneTurnOn to LightHubB!
+from the lightsys perspective, LuminaireB9 sends DoneTurnOn to LightHubB!
+from the lightsys perspective, LuminaireB10 sends DoneTurnOn to LightHubB!
+from the lightsys perspective, LuminaireB11 sends DoneTurnOn to LightHubB!
+from the lightsys perspective, LuminaireB12 sends DoneTurnOn to LightHubB!
+from the lightsys perspective, LuminaireB13 sends DoneTurnOn to LightHubB!
+from the lightsys perspective, LuminaireB14 sends DoneTurnOn to LightHubB!
+from the lightsys perspective, LuminaireB15 sends DoneTurnOn to LightHubB!
 from the lightsys perspective, LuminaireA1 sends DoneTurnOff to LightHubA!
 from the lightsys perspective, LuminaireA2 sends DoneTurnOff to LightHubA!
 from the lightsys perspective, LuminaireA3 sends DoneTurnOff to LightHubA!
 from the lightsys perspective, LuminaireA4 sends DoneTurnOff to LightHubA!
 from the lightsys perspective, LuminaireA5 sends DoneTurnOff to LightHubA!
 from the lightsys perspective, LuminaireA6 sends DoneTurnOff to LightHubA!
+from the lightsys perspective, LuminaireA7 sends DoneTurnOff to LightHubA!
+from the lightsys perspective, LuminaireA8 sends DoneTurnOff to LightHubA!
+from the lightsys perspective, LuminaireA9 sends DoneTurnOff to LightHubA!
+from the lightsys perspective, LuminaireA10 sends DoneTurnOff to LightHubA!
+from the lightsys perspective, LuminaireA11 sends DoneTurnOff to LightHubA!
+from the lightsys perspective, LuminaireA12 sends DoneTurnOff to LightHubA!
+from the lightsys perspective, LuminaireA13 sends DoneTurnOff to LightHubA!
+from the lightsys perspective, LuminaireA14 sends DoneTurnOff to LightHubA!
+from the lightsys perspective, LuminaireA15 sends DoneTurnOff to LightHubA!
 from the lightsys perspective, LuminaireB1 sends DoneTurnOff to LightHubB!
 from the lightsys perspective, LuminaireB2 sends DoneTurnOff to LightHubB!
 from the lightsys perspective, LuminaireB3 sends DoneTurnOff to LightHubB!
 from the lightsys perspective, LuminaireB4 sends DoneTurnOff to LightHubB!
 from the lightsys perspective, LuminaireB5 sends DoneTurnOff to LightHubB!
 from the lightsys perspective, LuminaireB6 sends DoneTurnOff to LightHubB!
+from the lightsys perspective, LuminaireB7 sends DoneTurnOff to LightHubB!
+from the lightsys perspective, LuminaireB8 sends DoneTurnOff to LightHubB!
+from the lightsys perspective, LuminaireB9 sends DoneTurnOff to LightHubB!
+from the lightsys perspective, LuminaireB10 sends DoneTurnOff to LightHubB!
+from the lightsys perspective, LuminaireB11 sends DoneTurnOff to LightHubB!
+from the lightsys perspective, LuminaireB12 sends DoneTurnOff to LightHubB!
+from the lightsys perspective, LuminaireB13 sends DoneTurnOff to LightHubB!
+from the lightsys perspective, LuminaireB14 sends DoneTurnOff to LightHubB!
+from the lightsys perspective, LuminaireB15 sends DoneTurnOff to LightHubB!
 
 ///////////////////////////////////////////!
 // Consumption Stimuli flux

@@ -154,6 +154,18 @@ output.add(outCarCrashBehaviorA, new CarCrashBehaviorA(carCrashEvent));
 System.out.println("----------------------- LightCentral Sent LightChangedState ------------------------");
 %>!
 
+//-----------------------------------------------!
+//			Send SendingCarCrashBehavior!
+//---------!
+hold in SendCarCrashToBState for time 1!
+after SendCarCrashToBState output CarCrashBehaviorB!
+from SendCarCrashToBState go to WaitForLightChangedCarCrashState!
+output event for SendCarCrashToBState
+<%
+output.add(outCarCrashBehaviorB, new CarCrashBehaviorB(carCrashEvent));
+System.out.println("----------------------- LightCentral Sent LightChangedState ------------------------");
+%>!
+
 
 passivate in WaitForLightChangedCarCrashState!
 when in WaitForLightChangedCarCrashState and receive LightChangedState go to SendingCarCrashBehavior!
@@ -217,6 +229,18 @@ from SendRestoreBehaviorToAState go to WaitForLightChangedRestoreState!
 output event for SendRestoreBehaviorToAState
 <%
 output.add(outRestoreBehaviorA, new RestoreBehaviorA(crashResolvedEvent));
+System.out.println("----------------------- LightCentral Sent LightChangedState ------------------------");
+%>!
+
+//-----------------------------------------------!
+//			Send SendingCarCrashBehavior!
+//---------!
+hold in SendRestoreBehaviorToBState for time 1!
+after SendRestoreBehaviorToBState output RestoreBehaviorB!
+from SendRestoreBehaviorToBState go to WaitForLightChangedRestoreState!
+output event for SendRestoreBehaviorToBState
+<%
+output.add(outRestoreBehaviorB, new RestoreBehaviorB(crashResolvedEvent));
 System.out.println("----------------------- LightCentral Sent LightChangedState ------------------------");
 %>!
 

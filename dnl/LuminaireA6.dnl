@@ -2,8 +2,8 @@
 //			Messages typedef!
 //---------!
 accepts input on LightChangedState with type LightChangedState!
-accepts input on CarCrashBehaviorA2 with type CarCrashBehaviorA2!
-accepts input on RestoreBehaviorA2 with type RestoreBehaviorA2!
+accepts input on CarCrashBehaviorA6 with type CarCrashBehaviorA6!
+accepts input on RestoreBehaviorA6 with type RestoreBehaviorA6!
 
 //-----------------------------------------------!
 //			Variables!
@@ -14,36 +14,36 @@ use isMe with type boolean!
 //			ReadyState!
 //---------!
 to start passivate in ReadyState!
-when in ReadyState and receive CarCrashBehaviorA2 go to SendLightChangedState!
+when in ReadyState and receive CarCrashBehaviorA6 go to SendLightChangedState!
 when in ReadyState and receive TurnOn go to SendDoneTurnOnState!
 when in ReadyState and receive TurnOff go to SendDoneTurnOffState!
-when in ReadyState and receive RestoreBehaviorA2 go to SendLightChangedState!
-external event for ReadyState with CarCrashBehaviorA2
+when in ReadyState and receive RestoreBehaviorA6 go to SendLightChangedState!
+external event for ReadyState with CarCrashBehaviorA6
 <%
-CarCrashBehaviorA2 event = (CarCrashBehaviorA2) messageList.get(0).getData();
+CarCrashBehaviorA6 event = (CarCrashBehaviorA6) messageList.get(0).getData();
 String[] params = event.getValue().split(";");
 datetime = params[0];
 isMe = contains(name, params[2].split(","));
-System.out.println("----------------------- LuminareA2 IsMe "+ (isMe ? "true": false) +" ------------------------");
-System.out.println("----------------------- LuminareA2 Received CarCrashBehaviorA1 ------------------------");
+System.out.println("----------------------- LuminareA6 IsMe "+ (isMe ? "true": false) +" ------------------------");
+System.out.println("----------------------- LuminareA6 Received CarCrashBehaviorA1 ------------------------");
 %>!
 external event for ReadyState with TurnOn
 <%
 TurnOn event = (TurnOn) messageList.get(0).getData();
 String[] params = event.getValue().split(";");
 datetime = params[0];
-System.out.println("----------------------- LuminareA2 Received TurnOn ------------------------");
+System.out.println("----------------------- LuminareA6 Received TurnOn ------------------------");
 %>!
 external event for ReadyState with TurnOff
 <%
 TurnOff event = (TurnOff) messageList.get(0).getData();
 String[] params = event.getValue().split(";");
 datetime = params[0];
-System.out.println("----------------------- LuminareA2 Received TurnOff ------------------------");
+System.out.println("----------------------- LuminareA6 Received TurnOff ------------------------");
 %>!
-external event for ReadyState with RestoreBehaviorA2
+external event for ReadyState with RestoreBehaviorA6
 <%
-RestoreBehaviorA2 event = (RestoreBehaviorA2) messageList.get(0).getData();
+RestoreBehaviorA6 event = (RestoreBehaviorA6) messageList.get(0).getData();
 String[] params = event.getValue().split(";");
 datetime = params[0];
 %>!
@@ -62,7 +62,7 @@ if (isMe) {
 	output.add(outLightChangedState, new LightChangedState(datetime + ";" + "light_changed_state"));
 }
 
-System.out.println("----------------------- LuminareA2 Sent SendCarCrashState ------------------------");
+System.out.println("----------------------- LuminareA6 Sent SendCarCrashState ------------------------");
 %>!
 
 //-----------------------------------------------!
@@ -81,7 +81,7 @@ from SendDoneTurnOffState go to ReadyState!
 output event for SendDoneTurnOffState
 <%
 output.add(outDoneTurnOff, new DoneTurnOff(datetime + ";" + "done_turn_off" + ";" + name));
-System.out.println("----------------------- LuminareA2 Sent DoneTurnOff ------------------------");
+System.out.println("----------------------- LuminareA6 Sent DoneTurnOff ------------------------");
 %>!
 
 //-----------------------------------------------!
@@ -90,7 +90,7 @@ System.out.println("----------------------- LuminareA2 Sent DoneTurnOff --------
 
 add additional code
 <%
-protected String name = "A2";
+protected String name = "A6";
 protected boolean contains(String key, String[] values) {
 	System.out.println("----------------------- Key: |" + key + "| ------------------------");
 	

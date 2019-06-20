@@ -45,6 +45,11 @@ external event for ReadyState with LightChangedState
 LightChangedState event = (LightChangedState) messageList.get(0).getData();
 output(event.getValue());
 %>!
+external event for ReadyState with Consumption
+<%
+Consumption event = (Consumption) messageList.get(0).getData();
+output(event.getValue());
+%>!
 
 //-----------------------------------------------!
 //			SendCarCrash!

@@ -15,7 +15,7 @@ use isMe with type boolean!
 //---------!
 to start passivate in ReadyState!
 when in ReadyState and receive CarCrashBehaviorB11 go to SendLightChangedState!
-when in ReadyState and receive TurnOn go to SendDoneTurnOnState!
+when in ReadyState and receive TurnOn go to SendLightChangedState!
 when in ReadyState and receive TurnOff go to SendDoneTurnOffState!
 when in ReadyState and receive RestoreBehaviorB11 go to SendLightChangedState!
 external event for ReadyState with CarCrashBehaviorB11
@@ -32,6 +32,7 @@ external event for ReadyState with TurnOn
 TurnOn event = (TurnOn) messageList.get(0).getData();
 String[] params = event.getValue().split(";");
 datetime = params[0];
+isMe = true;
 System.out.println("----------------------- LuminareB11 Received TurnOn ------------------------");
 %>!
 external event for ReadyState with TurnOff
@@ -68,9 +69,9 @@ System.out.println("----------------------- LuminareB11 Sent SendCarCrashState -
 //-----------------------------------------------!
 //			Send DoneTurnOn!
 //---------!
-hold in SendDoneTurnOnState for time 1!
-after SendDoneTurnOnState output DoneTurnOn!
-from SendDoneTurnOnState go to ReadyState!
+// hold in SendDoneTurnOnState for time 1!
+// after SendDoneTurnOnState output DoneTurnOn!
+// from SendDoneTurnOnState go to ReadyState!
 
 //-----------------------------------------------!
 //			Send DoneTurnOff!

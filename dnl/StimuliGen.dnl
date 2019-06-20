@@ -265,7 +265,7 @@ Internal event for InitialState
 <%
 try
 {
-	buffer = new java.io.BufferedReader(new java.io.FileReader("/home/brlebtag/Documentos/Mestrado/AparecidaDEVS/StimuliGen.csv"));
+	buffer = new java.io.BufferedReader(new java.io.FileReader("/home/brlebtag/Documentos/Mestrado/AparecidaDEVS/simulacao.csv"));
 	System.out.println("----------------------- StimuliGen File Opened! -----------------------");
 } catch(Exception e) {
 	System.out.println("----------------------- StimuliGen Couldn't open the file -----------------------");

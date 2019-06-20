@@ -59,6 +59,7 @@ passivate in ReadyState!
 when in ReadyState and receive CarCrash go to SendingCarCrashBehavior!
 when in ReadyState and receive Consumption go to SendConsumptionState!
 when in ReadyState and receive CarCrashResolved go to SendingRestoreBehaviorState!
+when in ReadyState and receive LightChangedState go to SendLightChangedState!
 external event for ReadyState with CarCrash
 <%
 lightChangedStateResponse = "";
@@ -81,6 +82,10 @@ crashResolvedEvent = carCrashResolved.getValue();
 String[] params = crashResolvedEvent.split(";");
 datetime = params[0];
 System.out.println("----------------------- LightCentral Received CarCrashResolved "+crashResolvedEvent+" ------------------------");
+%>!
+external event for ReadyState with LightChangedState
+<%
+lightChangedStateParam = buildLightChangedState(messageList); 
 %>!
 
 //-----------------------------------------------!
@@ -126,7 +131,7 @@ internal event for SendingCarCrashBehavior
 	{
 		boolean normalBehavior = hub.getBehavior() == Hub.NORMAL_BEHAVIOR;
 		
-		if (normalBehavior && isWithinRange(hub, latitude, longitude, Range)) {
+		if (normalBehavior && isWithinRange(hub, latitude, longitude, 0.35)) {
 			anyChange = true;
 			hub.setBehavior(Hub.CAR_CRASH_BEHAVIOR);
 			System.out.println("----------------------- LightCentral go to SendCarCrashTo"+hub.getName()+"State ------------------------");
@@ -205,7 +210,7 @@ internal event for SendingRestoreBehaviorState
 	{
 		boolean carCrash = hub.getBehavior() == Hub.CAR_CRASH_BEHAVIOR;
 		
-		if (carCrash && isWithinRange(hub, latitude, longitude, Range)) {
+		if (carCrash && isWithinRange(hub, latitude, longitude, 0.35)) {
 			anyChange = true;
 			hub.setBehavior(Hub.NORMAL_BEHAVIOR);
 			System.out.println("----------------------- LightCentral go to SendRestoreBehaviorTo"+hub.getName()+"State ------------------------");
@@ -266,7 +271,7 @@ System.out.println("----------------------- LightCentral Received LightChangedSt
 
 add additional code
 <%
-protected static final double Range = 100/1000; // km
+protected static final double Range = 0.35; // km
 
 class Hub {
 	private double latitude;
@@ -386,11 +391,13 @@ protected String join(ArrayList<String> list, String separator) {
 protected boolean isWithinRange(Hub hub, double latitude, double longitude, double range) {
 	double lat1 = hub.getLatitude();
 	double lon1 = hub.getLongitude();
-	// double dist = distance(lat1, lon1, latitude, longitude);
-	double dist = distanceP(lat1, lon1, latitude, longitude);
+	double dist = distance(lat1, lon1, latitude, longitude);
+	// double dist = distanceP(lat1, lon1, latitude, longitude);
 	
-	// if (dist <= range)
-	if (dist <= 100)
+	// System.out.println("lat1: " + Double.toString(lat1)+", lon1: " + Double.toString(lon1)+", lat2: " + Double.toString(latitude)+", lon2: " + Double.toString(longitude)+", dist: " + Double.toString(dist) +", Range: " + Double.toString(range));
+	
+	if (dist <= range)
+	// if (dist <= 100)
 		return true;
 	return false;	
 }
@@ -408,6 +415,6 @@ protected double distanceP(double x1, double y1, double x2, double y2) {
 }
 
 protected double degreeToRad(double degree) {
-	return degree / Math.PI;
+	return degree * Math.PI / 180.0;
 }
 %>!

@@ -68,6 +68,7 @@ when in ReadyState and receive CarCrashBehaviorA go to SendingCarCrashState!
 when in ReadyState and receive TurnOn go to SendTurnOnState!
 when in ReadyState and receive TurnOff go to SendTurnOffState!
 when in ReadyState and receive RestoreBehaviorA go to SendingRestoreBehaviorState!
+when in ReadyState and receive LightChangedState go to SendLightChangedState!
 external event for ReadyState with CarCrashBehaviorA
 <%
 lightChangedStateList = "";
@@ -95,13 +96,17 @@ restoreEvent = event.getValue();
 restoreBehaviorParam = buildRestoreBehavior(restoreEvent);
 System.out.println("----------------------- LightHubA Received RestoreBehavior2 ------------------------");
 %>!
+external event for ReadyState with LightChangedState
+<%
+lightChangedStateParam = buildLightChangedState(messageList); 
+%>!
 
 //-----------------------------------------------!
 //			Send SendTurnOnState!
 //---------!
 hold in SendTurnOnState for time 1!
 after SendTurnOnState output TurnOn!
-from SendTurnOnState go to WaitForDoneTurnOnState!
+from SendTurnOnState go to ReadyState!
 output event for SendTurnOnState
 <%
 output.add(outTurnOn, turnOnParam);
@@ -135,8 +140,8 @@ System.out.println("----------------------- LightHubA Sent LightChangedState ---
 //-----------------------------------------------!
 //			Wait for DoneTurnOn!
 //---------!
-passivate in WaitForDoneTurnOnState!
-when in WaitForDoneTurnOnState and receive DoneTurnOn go to ReadyState!
+// passivate in WaitForDoneTurnOnState!
+// when in WaitForDoneTurnOnState and receive DoneTurnOn go to ReadyState!
 
 //-----------------------------------------------!
 //			Wait for DoneTurnOff!
@@ -178,7 +183,7 @@ internal event for SendingCarCrashState
 	for(Luminaire luminaire : listLuminaries)
 	{
 		boolean normalBehavior = luminaire.getBehavior() == Luminaire.NORMAL_BEHAVIOR;
-		if (normalBehavior && isWithinRange(luminaire, latitude, longitude, Range)) {
+		if (normalBehavior && isWithinRange(luminaire, latitude, longitude, 0.15)) {
 			anyChange = true;
 			luminaire.setBehavior(Luminaire.CAR_CRASH_BEHAVIOR);
 			System.out.println("----------------------- LightHubA go to SendCarCrashTo"+luminaire.getName()+"State ------------------------");
@@ -426,7 +431,7 @@ internal event for SendingRestoreBehaviorState
 	for(Luminaire luminaire : listLuminaries)
 	{
 		boolean carCrashBehavior = luminaire.getBehavior() == Luminaire.CAR_CRASH_BEHAVIOR;
-		if (carCrashBehavior && isWithinRange(luminaire, latitude, longitude, Range)) {
+		if (carCrashBehavior && isWithinRange(luminaire, latitude, longitude, 0.15)) {
 			anyChange = true;
 			luminaire.setBehavior(Luminaire.NORMAL_BEHAVIOR);
 			System.out.println("----------------------- LightHubA go to SendRestoreBehaviorTo"+luminaire.getName()+"State ------------------------");
@@ -649,7 +654,7 @@ System.out.println("----------------------- LightHubA Received LightChangedState
 
 add additional code
 <%
-protected static final double Range = 50/1000; // KM
+protected static final double Range = 0.15; // KM
 
 class Luminaire {
 	private double latitude;
@@ -757,7 +762,7 @@ protected String buildCarCrashBehavior(String event) {
 	double latitude = toDouble(params[2]);
 	double longitude = toDouble(params[3]);
 	
-	return params[0] + ";car_crash_behavior;" + AffectedLuminaires(latitude, longitude, Range);
+	return params[0] + ";car_crash_behavior;" + AffectedLuminaires(latitude, longitude, 0.15);
 }
 
 protected String buildRestoreBehavior(String event) {
@@ -765,7 +770,7 @@ protected String buildRestoreBehavior(String event) {
 	double latitude = toDouble(params[2]);
 	double longitude = toDouble(params[3]);
 	
-	return params[0] + ";restore_behavior;" + AffectedLuminaires(latitude, longitude, Range);
+	return params[0] + ";restore_behavior;" + AffectedLuminaires(latitude, longitude, 0.15);
 }
 
 protected double toDouble(String str) {
@@ -814,11 +819,11 @@ protected String join(ArrayList<String> list, String separator) {
 protected boolean isWithinRange(Luminaire luminaire, double latitude, double longitude, double range) {
 	double lat1 = luminaire.getLatitude();
 	double lon1 = luminaire.getLongitude();
-	// double dist = distance(lat1, lon1, latitude, longitude);
-	double dist = distanceP(lat1, lon1, latitude, longitude);
+	double dist = distance(lat1, lon1, latitude, longitude);
+	// double dist = distanceP(lat1, lon1, latitude, longitude);
 	
-	// if (dist <= range)
-	if (dist <= 50)
+	if (dist <= range)
+	//if (dist <= 50)
 		return true;
 	return false;	
 }
@@ -836,6 +841,6 @@ protected double distanceP(double x1, double y1, double x2, double y2) {
 }
 
 protected double degreeToRad(double degree) {
-	return degree / Math.PI;
+	return degree * Math.PI / 180.0;
 }
 %>!
